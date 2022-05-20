@@ -1,5 +1,13 @@
 ## Test-retest reliability estimation for a Stroop dataset
 
+$\begin{bmatrix}
+\theta_{_{c_{_1}i(f(g))}}\\
+\theta_{_{c_{_2}i(f(g))}}
+\end{bmatrix}~\sim \mathcal{N}\left(\begin{bmatrix}
+\nu_{_{c_1f(g)}}\\
+\nu_{_{c_2f(g)}}
+\end{bmatrix}$
+
 Due to a plugin called `jekyll-titles-from-headings` which is supported by GitHub Pages by default. The above header (in the markdown file) will be automatically used as the pages title.
 
 If the file does not start with a header, then the post title will be derived from the filename.
