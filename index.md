@@ -1,1 +1,1 @@
-What can I say?
+What do you expect me to say, huh?
