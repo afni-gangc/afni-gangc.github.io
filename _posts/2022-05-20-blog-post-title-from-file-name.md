@@ -1,16 +1,14 @@
 ## Test-retest reliability estimation for a Stroop dataset
 
-$x^2+y^2=z^2$
+$$x^2+y^2=z^2$$
 
-$\theta \sim \mathcal(N)(0, \sigma^2)$
+$$\theta ~\sim \mathcal N(0, ~\sigma^2)$$
 
-$\begin{bmatrix}
-\theta_{_{c_{_1}i(f(g))}}\\
-\theta_{_{c_{_2}i(f(g))}}
-\end{bmatrix}~\sim \mathcal{N}\left(\begin{bmatrix}
-\nu_{_{c_1f(g)}}\\
-\nu_{_{c_2f(g)}}
-\end{bmatrix}$
+$$\theta_1 
+\theta_2
+\sim \mathcal{N}(
+\nu_1 
+\nu_2)$$
 
 Due to a plugin called `jekyll-titles-from-headings` which is supported by GitHub Pages by default. The above header (in the markdown file) will be automatically used as the pages title.
 
