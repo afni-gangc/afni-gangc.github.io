@@ -2,6 +2,8 @@
 
 $x^2+y^2=z^2$
 
+$\theta \sim \mathcal(N)(0, \sigma^2)$
+
 $\begin{bmatrix}
 \theta_{_{c_{_1}i(f(g))}}\\
 \theta_{_{c_{_2}i(f(g))}}
