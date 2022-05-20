@@ -1,4 +1,4 @@
-## Test-retest reliability estimation for a Stroop dataset
+## Estimating test-retest reliability for a Stroop dataset
 
 $$x^2+y^2=z^2$$
 
