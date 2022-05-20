@@ -1,5 +1,7 @@
 ## Test-retest reliability estimation for a Stroop dataset
 
+$x^2+y^2=z^2$
+
 $\begin{bmatrix}
 \theta_{_{c_{_1}i(f(g))}}\\
 \theta_{_{c_{_2}i(f(g))}}
