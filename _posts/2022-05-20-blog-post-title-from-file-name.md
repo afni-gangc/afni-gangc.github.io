@@ -93,7 +93,14 @@ s1 inc1 0.80221
 s1 inc1 0.8327
 ...
 ```
-With 47 subjects, 2 conditions, 2 sessions, 240 trial per condition per session, we have total 45120 rows in the data table. And we're ready for the next adventure.
+With 47 subjects, 2 conditions, 2 sessions, 240 trial per condition per session, we have total 45120 rows in the data table. We purposely flatten the two factor so that we have a factor with four levels
+
+```{r}
+levels(dat$com)
+```
+This will allow use to more intuitively/directly parameterize the correlations among all the four combinations. 
+
+OK, now we're ready for the next adventure.
 
 ### Estimating test-retest reliability using `brms` ###
 
@@ -170,8 +177,7 @@ which shows that our model did a pretty good job - the simulated data (blue clou
 
 <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/ppc.jpg" />
 
-Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution $\mathcal D$ in the model) at the trial level. One may try other distributions such as shifted log-normal (as prefered in Haies et al. (2020)), Gaussian, Student's $t$, and (shifted) log-normal. Those alternative distributions could not compete with the exponentially-modified Gaussian as visually illustrated through posterior predictive checks as Fig. 5 in Chen et al. (2021). Model comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`.
-
+Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution $\mathcal D$ in the model) at the trial level. One may try other distributions such as shifted log-normal (as prefered in Haies et al. (2020)), Gaussian, inversge Gaussian Student's $t$, and (shifted) log-normal. Those alternative distributions could not compete with the exponentially-modified Gaussian as visually illustrated through posterior predictive checks as Fig. 5 in Chen et al. (2021). Model comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`.
 
 In addition, one may also fine-tune the cross-trial variability as discussed above (and as implemented in Haines et al. (2020)).
 
