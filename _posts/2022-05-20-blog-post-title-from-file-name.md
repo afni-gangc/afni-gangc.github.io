@@ -60,7 +60,7 @@ data_path <- "stroop/"  # here I assume the download data are stored under direc
 files_t1 <- list.files(data_path, pattern = "*1.csv")
 files_t2 <- list.files(data_path, pattern = "*2.csv")
 
-# Create a data from in long format
+# Create a data frame in long format
 long_stroop <- foreach(i=seq_along(files_t1), .combine = "rbind") %do% {
   # repetition/session 1
   tmp_t1 <- read.csv(file.path(data_path, files_t1[i]), header = F) %>% mutate(subj_num = i, time = 1)
@@ -73,7 +73,8 @@ long_stroop <- foreach(i=seq_along(files_t1), .combine = "rbind") %do% {
 
 dat <- long_stroop[long_stroop$Condition!=1,]
 ```
-Now, to apply the data to our hierarchical model, we flatten the two factors (condition and session) of $2\times 2$ structure into four combinators with the following `R` code:
+
+Next, to apply the data to our hierarchical model, we flatten the two factors (condition and session) of $2\times 2$ structure into a dimension of four combinators with the following `R` code:
 
 ```{r}
 dat[dat$Condition==2,'Condition'] <- 'inc' # incongruent
@@ -93,7 +94,8 @@ s1 inc1 0.80221
 s1 inc1 0.8327
 ...
 ```
-With 47 subjects, 2 conditions, 2 sessions, 240 trial per condition per session, we have total 45120 rows in the data table. We purposely flatten the two factor so that we have a factor with four levels:
+
+With 47 subjects, 2 conditions, 2 sessions, 240 trial per condition per session, there are total 45120 rows in the data table. We purposefully flatten the two factor so that we have a factor with four levels:
 
 ```{r}
 levels(dat$com)
