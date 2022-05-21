@@ -24,10 +24,10 @@ This blog intends to
 
 The modeling framework can be laid as below. Suppose that, in a test-retest experiment, the effect of interest (e.g., reaction time) $y_{crst}$ is measured at trial $t$ ($t=1,2,...,T$) during each of the two repetitions/sessions ($r=1,2$) for subject $s$ ($s=1,2,...,S$) under the condition $c$ ($c=1,2$). If one adopts the conventional ICC formulation, the data would have to be aggregated by collapsing trial dimension and obtain, for example, the average values $\overline{y}_{cs\cdot}$. However, test-retest reliability could be underestimated under some circumstances, and extent of underestimation depends on the relative magnitude of cross-trial variability compared to its cross-subject counterpart (Rouder et al., 2019; Chen et al., 2021). Here we build the following hierarchical model:
 
-**trial** level: $y_{crst}~\sim ~\mathcal D (\mu_{crs},   \sigma^2);$\
+**trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}+\mu_{crs},   \sigma^2);$\
 **subject** level: $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol S_{4\times 4}).$
 
-Here the distribution $\mathcal D$ at the trial level can be any probability density that could properly capture the data generataive mechanism. The typical distributions for reaction time are Gaussian, Student's $t$, exponentially-modified Gaussian, (shifted) log-normal, etc. The variance-covariance matrix $\boldsymbol S_{4\times 4}$ captures the inter-relationships among the effects at the subject level. We know that, after scaling, the variance-covariance matrix $\boldsymbol S_{4\times 4}$ would show the correlation structure among the four components of $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})$. Later I will demonstrate how to extract the jewels in the crown from this matrix $\boldsymbol S_{4\times 4}$ and obtain test-retest reliability for various effects. (*I wish that the model could be expressed more elegantly using vector-matrix formulation, but the math notation support at gihub is quite limited at the moment.*)
+Here the distribution $\mathcal D$ at the trial level can be any probability density that could properly capture the data generataive mechanism. The typical distributions for reaction time are Gaussian, Student's $t$, exponentially-modified Gaussian, (shifted) log-normal, etc. $m_{cr}$ is the population-level effect under condition $c$ during repetition $r$. The variance-covariance matrix $\boldsymbol S_{4\times 4}$ captures the inter-relationships among the subject-level effects $\mu_{crs}$. We know that, after scaling, the variance-covariance matrix $\boldsymbol S_{4\times 4}$ would show the correlation structure among the four components of $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})$. Later I will demonstrate how to extract the jewels in the crown from this matrix $\boldsymbol S_{4\times 4}$ and obtain test-retest reliability for various effects. (*I wish that the model could be expressed more elegantly using vector-matrix formulation, but the math notation support at gihub is quite limited at the moment.*)
 
 Undering the modeling formulation is important. Without jotting a model in mathematical formula, I would have trouble fully grasping a chunk of code (e.g., `brms` implementation). Usually the model can be directly mapped to the code. I'd like to note the following with regard to the hierarchical model for test-retest reliability -
 
@@ -55,8 +55,7 @@ Here I'll use a dataset of Stroop task from Hedge et al. (2018) to demonstrate t
 ```{r }
 library(foreach); library(dplyr); library(tidyr)
 
-### here I assume the download data are stored under directory 'stroop'
-data_path <- "stroop/"      
+data_path <- "stroop/"  # here I assume the download data are stored under directory 'stroop'
 files_t1 <- list.files(data_path, pattern = "*1.csv")
 files_t2 <- list.files(data_path, pattern = "*2.csv")
 
@@ -93,18 +92,18 @@ s1 inc1 0.80221
 s1 inc1 0.8327
 ...
 ```
-With 47 subjects, 2 conditions, 2 sessions, 240 trial per condition per session, we have total 45120 rows in the data table. We purposely flatten the two factor so that we have a factor with four levels
+With 47 subjects, 2 conditions, 2 sessions, 240 trial per condition per session, we have total 45120 rows in the data table. We purposely flatten the two factor so that we have a factor with four levels:
 
 ```{r}
 levels(dat$com)
 ```
-This will allow use to more intuitively/directly parameterize the correlations among all the four combinations. 
+These four levels of "con1", "con2", "inc1", and "inc2" correspond to congruent during session 1, congruent during session 2, incongruent during session 1, and incongruent during session 2. This coding will allow us to more intuitively/directly parameterize the correlations among all the four combinations. Our goal is to assess the test-retest reliability about the contrast between incongruent and congruent. Keep in mind that the conventional ICC only gave a lackluster reliability estimate of approximately 0.5 (Hedge et al., 2018; Haines et al., 2020; Chen et al., 2021).
 
 OK, now we're ready for the next adventure.
 
 ### Estimating test-retest reliability using `brms` ###
 
-Now we implement our hierarchical model with the newly obtained data `stroop.txt`. Run the following `R` code:
+Let's implement our hierarchical model with the newly obtained data `stroop.txt`. Run the following `R` code:
 
 ```{r}
 dat <- read.table('stroop.txt', header=T)
@@ -168,7 +167,6 @@ beta    0.187     0.001    0.184    0.189 1.000     3948     1820
 
 We should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
 
-
 ```{r}
 pp_check(m, ndraws = 100)
 ```
@@ -181,7 +179,7 @@ Is there any room for model improvement? Remeber that we used exponentially-modi
 
 In addition, one may also fine-tune the cross-trial variability as discussed above (and as implemented in Haines et al. (2020)).
 
-We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? Here comes our finale:
+We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? Remember those four levels of "con1", "con2", "inc1", and "inc2" correspond to congruent during session 1, congruent during session 2, incongruent during session 1. Since in the current context, we are interested in the test-retest reliability about the contrast between incongruent and congruent. So we want to extract those model components of $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})$, and then obtain the correlation between $\mu_{21s}- \mu_{11s}$ and $\mu_{22s}- \mu_{21s})$. Here comes our finale:
 
 ```\{r}
 ge <- ranef(m, summary = FALSE) # extract subject-Level effects
