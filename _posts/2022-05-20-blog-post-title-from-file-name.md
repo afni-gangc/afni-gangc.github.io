@@ -29,15 +29,14 @@ This blog intends to
 
 The modeling framework can be laid as below. Suppose that, in a test-retest experiment, the effect of interest (e.g., reaction time) $y_{crst}$ is measured at trial $t$ ($t=1,2,...,T$) during each of the two repetitions/sessions ($r=1,2$) for subject $s$ ($s=1,2,...,S$) under the condition $c$ ($c=1,2$). If one adopts the conventional ICC formulation, the data would have to be aggregated by collapsing trial dimension and obtain, for example, the average values $\overline{y}_{cs\cdot}$. However, test-retest reliability could be underestimated under some circumstances, and extent of underestimation depends on the relative magnitude of cross-trial variability compared to its cross-subject counterpart (Rouder et al., 2019; Chen et al., 2021). Here we build the following hierarchical model:
 
-**trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}+\mu_{crs},   \sigma^2);$\
+**trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}+\mu_{crs},   \sigma_{crs}^2);$\
 **subject** level: $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol S_{4\times 4}).$
 
 Here the distribution $\mathcal D$ at the trial level can be any probability density that could properly capture the data generataive mechanism. The typical distributions for reaction time are Gaussian, Student's $t$, exponentially-modified Gaussian, (shifted) log-normal, etc. $m_{cr}$ is the population-level effect under condition $c$ during repetition $r$. The variance-covariance matrix $\boldsymbol S_{4\times 4}$ captures the inter-relationships among the subject-level effects $\mu_{crs}$. We know that, after scaling, the variance-covariance matrix $\boldsymbol S_{4\times 4}$ would show the correlation structure among the four components of $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})$. Later I will demonstrate how to extract the jewels in the crown from this matrix $\boldsymbol S_{4\times 4}$ and obtain test-retest reliability for various effects. (*I wish that the model could be expressed more elegantly using vector-matrix formulation, but the math notation support at gihub is quite limited at the moment.*)
 
-The cross-trial variability $\sigma$ can be further partitioned among the subject-level effects. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be (mirroring the subject-level effects above):
+The cross-trial variability $\sigma_{crs}$ can be further partitioned among the four combinations between the two factors of condition and session. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be (mirroring the subject-level effects above):
     
-**trial** level: $\sigma_{crst}~\sim ~\mathcal N (s_{cr}+\pi_{crs},   \tau^2);$\
-**subject** level: $(\pi_{11s}, \pi_{21s}, \pi_{12s}, \pi_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol T_{4\times 4}).$
+$(\sigma_{11s}, \sigma_{21s}, \sigma_{12s}, \sigma_{22s})^T \sim ~\mathcal N((\sigma_{11}, \sigma_{21}, \sigma_{12}, \sigma_{22})^T, ~\boldsymbol G_{4\times 4}).$
 
 Below we will adopt a hierarchical model with this fine-tuned structure for cross-trial variability.
 
