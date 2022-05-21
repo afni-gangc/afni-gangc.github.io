@@ -6,7 +6,11 @@ Gang Chen (twitter: @gangchen6)
 
 Properly estimating `test-retest reliability` has become a hot topic in recent years. Traditionally test-retest reliability is usually conceptualized and quantitatively estimated as `intraclass correlation` (ICC), whose definition can be found in, for example, this [wikipedia](https://en.wikipedia.org/wiki/Intraclass_correlation) page. The trational ICC formulation works fine when there is no or little measurement error. However, the adoption of ICC can be problematic when measurement accuracy becomes an issue in situations where the quantity under study is measured many times with substantial amount of variability. 
 
-A new modeling framework is needed to estimate test-retest reliabiltiy with measurement errors properly handled. In experiments where the effect is assessed through many trials, we need to construct a hierarchical/multilevel model that 1) chacterizes/maps the data structure as close to the data structure (or data generative mechanism) as possible, and 2) separates the cross-trial variability from the estimation process of test-retest reliability. It is this hierarchical modeling framework we would like to adopt and demonstrate in this blog. More detailed theorectical discussion from the modeling perspective can be found in the following papers.
+A new modeling framework is needed to estimate test-retest reliabiltiy with measurement errors properly handled. In experiments where the effect is assessed through many trials, we need to construct a hierarchical/multilevel model that 
+
+1) chacterizes/maps the data structure as close to the data structure (or data generative mechanism) as possible, and
+
+2) separates the cross-trial variability from the estimation process of test-retest reliability. It is this hierarchical modeling framework we would like to adopt and demonstrate in this blog. More detailed theorectical discussion from the modeling perspective can be found in the following papers.
 
 * Haines et al., 2020. Learning from the Reliability Paradox: How Theoretically Informed Generative Models Can Advance the Social, Behavioral, and Brain Sciences (preprint). PsyArXiv. https://doi.org/10.31234/osf.io/xr7y3
 
@@ -16,7 +20,7 @@ A new modeling framework is needed to estimate test-retest reliabiltiy with meas
 
 This blog intends to
 
-1) lay out the structure of a hierarchical modeling;
+1) lay out the structure of a hierarchical modeling framework;
 
 2) demonstrate the implementation of the hierarhical model using the `R` package `brms` with a dataset from a Stroop experiment ([Hedge et al., 2018](https://doi.org/10.3758/s13428-017-0935-1)).
 
