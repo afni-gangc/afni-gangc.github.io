@@ -177,8 +177,6 @@ which shows that our model did a pretty good job - the simulated data (blue clou
 
 Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution $\mathcal D$ in the model) at the trial level. One may try other distributions such as shifted log-normal (as prefered in Haies et al. (2020)), Gaussian, inversge Gaussian Student's $t$, and (shifted) log-normal. Those alternative distributions could not compete with the exponentially-modified Gaussian as visually illustrated through posterior predictive checks as Fig. 5 in Chen et al. (2021). Model comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`.
 
-In addition, one may also fine-tune the cross-trial variability as discussed above (and as implemented in Haines et al. (2020)).
-
 We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? Remember those four levels of "con1", "con2", "inc1", and "inc2" correspond to congruent during session 1, congruent during session 2, incongruent during session 1. Since in the current context, we are interested in the test-retest reliability about the contrast between incongruent and congruent. So we want to extract those model components of $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})$, and then obtain the correlation between $\mu_{21s}- \mu_{11s}$ and $\mu_{22s}- \mu_{21s})$. Here comes our finale:
 
 ```\{r}
@@ -192,6 +190,6 @@ plot(dens, xlim=c(0,1))
 dens$x[which.max(dens$y)]
 ```
 
-The plot below shows the posterior distribution of test-retest reliability for cognitive inhibition effect (reaction time difference between incongruent and congruent tasks). Based on our hierarchical model, the mode (peak) for the test-retest reliability of the Stroop dataset is 0.82. This indicates that he underestimation by the conventional ICC(3,1) $\simeq 0.5$ is quite substantial. The reason for this large extent of underestimation is due to the large amount of cross-trial variablity compared to cross-subject variability. See more explanation in Chen et al. (2021) regarding the important role of cross-trial variablity.
+The plot below shows the posterior distribution of test-retest reliability for cognitive inhibition effect (reaction time difference between incongruent and congruent tasks). Based on our hierarchical model, the mode (peak) for the test-retest reliability of the Stroop dataset is 0.82. This indicates that he underestimation by the conventional ICC(3,1) $\simeq 0.5$ is quite substantial. The reason for this large extent of underestimation is due to the large amount of cross-trial variablity compared to cross-subject variability. See more explanation in Chen et al. (2021) regarding the intriguing issue of cross-trial variablity as well as the crucial role of trial sample size relative to the subject sample size.
 
 <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr.jpg" />
