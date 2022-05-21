@@ -36,7 +36,7 @@ Here the distribution $\mathcal D$ at the trial level can be any probability den
 
 The cross-trial variability $\sigma_{crs}$ can be further partitioned among the four combinations between the two factors of condition and session. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be (mirroring the subject-level effects above):
     
-$(\sigma_{11s}, \sigma_{21s}, \sigma_{12s}, \sigma_{22s})^T \sim ~\mathcal N((\sigma_{11}, \sigma_{21}, \sigma_{12}, \sigma_{22})^T, ~\boldsymbol G_{4\times 4}).$
+$(\sigma_{11s}, \sigma_{21s}, \sigma_{12s}, \sigma_{22s})^T \sim ~\mathcal N((\gamma_{11}, \gamma_{21}, \gamma_{12}, \gamma_{22})^T, ~\boldsymbol G_{4\times 4}).$
 
 Below we will adopt a hierarchical model with this fine-tuned structure for cross-trial variability.
 
