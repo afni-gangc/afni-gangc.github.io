@@ -131,37 +131,37 @@ reveals the summarized results:
 Group-Level Effects: 
 ~sub (Number of levels: 47) 
                                  Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
-sd(concon1)                         0.056     0.006    0.046    0.068 1.014      338      611
-sd(concon2)                         0.061     0.006    0.050    0.074 1.020      373      657
-sd(coninc1)                         0.080     0.008    0.066    0.099 1.009      424      918
-sd(coninc2)                         0.070     0.007    0.057    0.085 1.020      408      739
-sd(sigma_concon1)                   0.426     0.046    0.350    0.526 1.003      713      979
-sd(sigma_concon2)                   0.491     0.052    0.398    0.606 1.008      698     1059
-sd(sigma_coninc1)                   0.415     0.046    0.336    0.515 1.003      719     1245
-sd(sigma_coninc2)                   0.433     0.046    0.352    0.534 1.010      728     1163
-cor(concon1,concon2)                0.738     0.071    0.584    0.854 1.017      390      628
-cor(concon1,coninc1)                0.927     0.027    0.865    0.966 1.005      656     1238
-cor(concon2,coninc1)                0.597     0.097    0.370    0.757 1.016      458      782
-cor(concon1,coninc2)                0.737     0.073    0.572    0.853 1.013      480      603
-cor(concon2,coninc2)                0.948     0.019    0.902    0.977 1.013      942     1341
-cor(coninc1,coninc2)                0.695     0.082    0.504    0.826 1.012      531      829
-cor(sigma_concon1,sigma_concon2)    0.815     0.061    0.676    0.915 1.005      745     1013
-cor(sigma_concon1,sigma_coninc1)    0.921     0.035    0.840    0.974 1.001      799     1156
-cor(sigma_concon2,sigma_coninc1)    0.727     0.082    0.534    0.856 1.002      949     1095
-cor(sigma_concon1,sigma_coninc2)    0.755     0.076    0.588    0.879 1.002      796      834
-cor(sigma_concon2,sigma_coninc2)    0.956     0.024    0.896    0.987 1.001     1168     1269
-cor(sigma_coninc1,sigma_coninc2)    0.757     0.076    0.577    0.874 1.003      981     1235
+sd(comcon1)                         0.056     0.006    0.046    0.068 1.014      338      611
+sd(comcon2)                         0.061     0.006    0.050    0.074 1.020      373      657
+sd(cominc1)                         0.080     0.008    0.066    0.099 1.009      424      918
+sd(cominc2)                         0.070     0.007    0.057    0.085 1.020      408      739
+sd(sigma_comcon1)                   0.426     0.046    0.350    0.526 1.003      713      979
+sd(sigma_comcon2)                   0.491     0.052    0.398    0.606 1.008      698     1059
+sd(sigma_cominc1)                   0.415     0.046    0.336    0.515 1.003      719     1245
+sd(sigma_cominc2)                   0.433     0.046    0.352    0.534 1.010      728     1163
+cor(comcon1,comcon2)                0.738     0.071    0.584    0.854 1.017      390      628
+cor(comcon1,cominc1)                0.927     0.027    0.865    0.966 1.005      656     1238
+cor(comcon2,cominc1)                0.597     0.097    0.370    0.757 1.016      458      782
+cor(comcon1,cominc2)                0.737     0.073    0.572    0.853 1.013      480      603
+cor(comcon2,cominc2)                0.948     0.019    0.902    0.977 1.013      942     1341
+cor(cominc1,cominc2)                0.695     0.082    0.504    0.826 1.012      531      829
+cor(sigma_comcon1,sigma_comcon2)    0.815     0.061    0.676    0.915 1.005      745     1013
+cor(sigma_comcon1,sigma_cominc1)    0.921     0.035    0.840    0.974 1.001      799     1156
+cor(sigma_comcon2,sigma_cominc1)    0.727     0.082    0.534    0.856 1.002      949     1095
+cor(sigma_comcon1,sigma_cominc2)    0.755     0.076    0.588    0.879 1.002      796      834
+cor(sigma_comcon2,sigma_cominc2)    0.956     0.024    0.896    0.987 1.001     1168     1269
+cor(sigma_cominc1,sigma_cominc2)    0.757     0.076    0.577    0.874 1.003      981     1235
 
 Population-Level Effects: 
               Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
-concon1          0.642     0.008    0.626    0.657 1.009      176      416
-concon2          0.621     0.009    0.602    0.638 1.012      282      550
-coninc1          0.705     0.011    0.682    0.727 1.007      182      457
-coninc2          0.662     0.010    0.642    0.683 1.011      278      568
-sigma_concon1   -2.729     0.069   -2.866   -2.599 1.011      303      632
-sigma_concon2   -2.799     0.078   -2.953   -2.647 1.014      316      775
-sigma_coninc1   -2.251     0.067   -2.383   -2.122 1.011      326      732
-sigma_coninc2   -2.437     0.070   -2.575   -2.296 1.016      307      787
+comcon1          0.642     0.008    0.626    0.657 1.009      176      416
+comcon2          0.621     0.009    0.602    0.638 1.012      282      550
+cominc1          0.705     0.011    0.682    0.727 1.007      182      457
+cominc2          0.662     0.010    0.642    0.683 1.011      278      568
+sigma_comcon1   -2.729     0.069   -2.866   -2.599 1.011      303      632
+sigma_comcon2   -2.799     0.078   -2.953   -2.647 1.014      316      775
+sigma_cominc1   -2.251     0.067   -2.383   -2.122 1.011      326      732
+sigma_cominc2   -2.437     0.070   -2.575   -2.296 1.016      307      787
 
 Family Specific Parameters: 
      Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
