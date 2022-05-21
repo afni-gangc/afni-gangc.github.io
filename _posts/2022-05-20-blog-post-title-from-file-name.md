@@ -171,8 +171,9 @@ We should be happy that the four chains were well-behaved ($\hat R < 1.05$). In 
 pp_check(m, ndraws = 100)
 ```
 
-which shows that our model did a pretty good job - the simulated data (blue cloud) based on the model fit well with the original RT data:
+which shows that our model did a pretty good job - the simulated data (green cloud) based on the model fit well with the original RT data (black density curve):
 
+<img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/ppc.jpg" />
 
 Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution $\mathcal D$ in the model) at the trial level. One may try other distributions such as shifted log-normal (as prefered in Haies et al. (2020)), Gaussian, inversge Gaussian Student's $t$, and (shifted) log-normal. Those alternative distributions could not compete with the exponentially-modified Gaussian as visually illustrated through posterior predictive checks as Fig. 5 in Chen et al. (2021). Model comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`.
 
