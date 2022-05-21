@@ -1,4 +1,4 @@
-## Estimating test-retest reliability for a Stroop dataset
+## Estimating test-retest reliability for Stroop effect
 
 Gang Chen (twitter: @gangchen6)
 
@@ -16,7 +16,7 @@ A new modeling framework is needed to estimate test-retest reliabiltiy with meas
 
 This blog intends to
 
-1) lay out the hierarchical modeling structure;
+1) lay out the structure of a hierarchical modeling;
 
 2) demonstrate the implementation of the hierarhical model using the `R` package `brms` with a dataset from a Stroop experiment ([Hedge et al., 2018](https://doi.org/10.3758/s13428-017-0935-1)).
 
