@@ -166,7 +166,7 @@ Is there any room for model improvement? Remeber that we used exponentially-modi
 We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? 
 
 ```\{r}
-ge <- ranef(m, summary = FALSE) # Extract Group-Level (or random-effect) Estimate
+ge <- ranef(m, summary = FALSE) # extract subject-Level effects
 trr <- rep(0, 2000)
 for(ii in 1:2000) 
    trr[ii] <- cor(ge[["sub"]][ii, ,"cominc1"]-ge[["sub"]][ii, ,"comcon1"], 
