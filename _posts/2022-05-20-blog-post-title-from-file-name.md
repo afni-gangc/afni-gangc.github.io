@@ -182,12 +182,11 @@ We should not forget our ultimate goal: estimating test-retest reliability! How 
 ```\{r}
 ge <- ranef(m, summary = FALSE) # extract subject-Level effects
 trr <- rep(0, 2000)
-for(ii in 1:2000) 
-   trr[ii] <- cor(ge[["sub"]][ii, ,"cominc1"]-ge[["sub"]][ii, ,"comcon1"], 
-                  ge[["sub"]][ii, ,"cominc2"]-ge[["sub"]][ii, ,"comcon2"])
+for(ii in 1:2000) trr[ii] <- cor(ge[["sub"]][ii, ,"cominc1"]-ge[["sub"]][ii, ,"comcon1"], 
+                                 ge[["sub"]][ii, ,"cominc2"]-ge[["sub"]][ii, ,"comcon2"])
 dens <- density(trr)
-plot(dens, xlim=c(0,1))
-dens$x[which.max(dens$y)]
+plot(density(trr), xlim=c(0.4,1), xlab='Test-Retest Reliability')
+dens$x[which.max(dens$y)]  # show the peak of the density curve
 ```
 
 The plot below shows the posterior distribution of test-retest reliability for cognitive inhibition effect (reaction time difference between incongruent and congruent tasks). Based on our hierarchical model, the mode (peak) for the test-retest reliability of the Stroop dataset is 0.82. This indicates that he underestimation by the conventional ICC(3,1) $\simeq 0.5$ is quite substantial. The reason for this large extent of underestimation is due to the large amount of cross-trial variablity compared to cross-subject variability. See more explanation in Chen et al. (2021) regarding the intriguing issue of cross-trial variablity as well as the crucial role of trial sample size relative to the subject sample size.
