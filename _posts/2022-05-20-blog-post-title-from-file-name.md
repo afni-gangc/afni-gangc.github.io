@@ -177,6 +177,6 @@ plot(dens, xlim=c(0,1))
 dens$x[which.max(dens$y)]
 ```
 
-We have a mode (peak) of 0.82 for the test-retest reliability of the Stroop dataset based on our hierarchical model.
+We have a mode (peak) of 0.82 for the test-retest reliability of the Stroop dataset based on our hierarchical model. The underestimation by the conventional ICC(3,1) (~0.49) is quite substantial. The reason for this large extent of underestimation is due to the large amount of cross-trial variablity compared to cross-subject variability.
 
 <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr.jpg" />
