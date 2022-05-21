@@ -36,14 +36,18 @@ Undering the modeling formulation is important. Without jotting a model in mathe
 * The hierachical model formulated here is parameterized flatly with all the four combinations (indexed by $c$ and $r$). Personally I consider this parameterization is more intuitive and more generic. That is, the model considered here is differently from all the three papers cited above including my own (Chen et al., 2021).
 
     * Haines et al. (2020) adopted dummy coding for the two conditions with one condition coded as 1 while the other serves as the reference. Thus, each slope would correspond to the condition contrast (usually the effect of interest) and each intercept is associated with the reference condition per session. I might be wrong, but it seems that a strong assumption was made in Haines et al. (2020) that no correlation exists for the reference condition between the two repetitions/sessions. 
+    
     * Rouder et al. (2019) use an indicator variable for the two conditions (0.5 for one condition and -0.5 for the other). Under this coding, each slope is the contrast between the two conditions per session, usually the effect of interest while each intercept is the average between the two conditions. One underlying assumption with the model in Rouder et al. (2019) was that no correlation exists between a slope (contrast) and an intercept (average).
+    
     * Chen et al. (2021) utilized the same indicator and shared the same underlying assumption as Rouder et al. (2019).
+    
     * The cross-trial variability can be further structured as the subject-level effects. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be: (mirroring the subject-level effects above)
     
         **trial** level: $\sigma_{crst}~\sim ~\mathcal N (\pi_{crs},   \tau^2);$\
         **subject** level: $(\pi_{11s}, \pi_{21s}, \pi_{12s}, \pi_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol T_{4\times 4}).$
-      Fine-tuning the cross-trial variability usually would not have much impact on test-retest reliability estimation, but it may improve the model fit (and sometimes the structure of cross-trial variability could be of theorectical interest).
-        
+
+      Below we will adopt a hierarchical model with this fine-tuned structure for cross-trial variability.
+
 ### Demo preparation ###
 
 Here I'll use a dataset of Stroop task from Hedge et al. (2018) to demonstrate the hierarchical modeling approach to estimating test-retest reliability. The data were collected from 47 subjects who performed Stroop tasks with 2 conditions (congruent, incongruent), 2 sessions (about three weeks apart), 240 trial per condition per session. First, we download the Stroop data from this publicly accessible [site](https://osf.io/cwzds/) and put them in a directory called `stroop/`. Then, let's steal some `R` code (with slight modification) from Haines's nice [blog](http://haines-lab.com/post/2019-05-29-thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/) and wrange the data a little bit:
@@ -106,12 +110,14 @@ save.image(file='stroop.RData')
 
 You may be surprised to notice how simple the code is. The only line that codes our model using `brm` is quite straightforward (if you're familiar with the model grammar used by the `R` package `lme4`) and it directly maps the data to our model. Note that I fit the trial-level effects with an exponentially-modified Gaussian distribution for the probability density $\mathcal D$ in our hierarchicala model above. This implementation may take a few hours (within-chain parallelization would shorten the runtime), so leave your computer alone and come back later.
 
-Let's check the results and make sure the chains behaved properly. The following code
+Let's check the results and make sure all the chains behaved properly. The following code
 ```{r}
 load('stroop.RData')
 summary(m)
 ```
+
 reveals the summarized results:
+
 ```{r}
 Group-Level Effects: 
 ~sub (Number of levels: 47) 
@@ -152,18 +158,24 @@ Family Specific Parameters:
      Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
 beta    0.187     0.001    0.184    0.189 1.000     3948     1820
 ```
+
 We should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
+
 
 ```{r}
 pp_check(m, ndraws = 100)
 ```
-which reveals that our model did a pretty good job - the simulated data (blue cloud) based on the model fit well with the original RT data:
+
+which shows that our model did a pretty good job - the simulated data (blue cloud) based on the model fit well with the original RT data:
 
 <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/ppc.jpg" />
 
-Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution $\mathcal D$ in the model) at the trial level. You may try other distributions such as shifted log-normal (as prefered in Haies et al. (2020), but the alternative distributions such as Gaussian, Student's $t$, and (shifted) log-normal could not compete with the exponentially-modified Gaussian as illustrated in Fig. 5 of Chen et al. (2021). The comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`. In addition, you may also fine-tune the cross-trial variability as discussed above (and as implemented in Haines et al. (2020)).
+Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution $\mathcal D$ in the model) at the trial level. One may try other distributions such as shifted log-normal (as prefered in Haies et al. (2020)), Gaussian, Student's $t$, and (shifted) log-normal. Those alternative distributions could not compete with the exponentially-modified Gaussian as visually illustrated through posterior predictive checks as Fig. 5 in Chen et al. (2021). Model comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`.
 
-We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? 
+
+In addition, one may also fine-tune the cross-trial variability as discussed above (and as implemented in Haines et al. (2020)).
+
+We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? Here comes our finale:
 
 ```\{r}
 ge <- ranef(m, summary = FALSE) # extract subject-Level effects
@@ -176,6 +188,6 @@ plot(dens, xlim=c(0,1))
 dens$x[which.max(dens$y)]
 ```
 
-We have a mode (peak) of 0.82 for the test-retest reliability of the Stroop dataset based on our hierarchical model. The underestimation by the conventional ICC(3,1) (~0.49) is quite substantial. The reason for this large extent of underestimation is due to the large amount of cross-trial variablity compared to cross-subject variability.
+The plot below shows the posterior distribution of test-retest reliability for cognitive inhibition effect (reaction time difference between incongruent and congruent tasks). Based on our hierarchical model, the mode (peak) for the test-retest reliability of the Stroop dataset is 0.82. This indicates that he underestimation by the conventional ICC(3,1) $\simeq 0.5$ is quite substantial. The reason for this large extent of underestimation is due to the large amount of cross-trial variablity compared to cross-subject variability. See more explanation in Chen et al. (2021) regarding the important role of cross-trial variablity.
 
 <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr.jpg" />
