@@ -151,7 +151,6 @@ sigma_coninc2   -2.437     0.070   -2.575   -2.296 1.016      307      787
 Family Specific Parameters: 
      Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
 beta    0.187     0.001    0.184    0.189 1.000     3948     1820
-
 ```
 We should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
 
