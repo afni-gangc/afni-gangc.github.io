@@ -69,7 +69,7 @@ long_stroop <- foreach(i=seq_along(files_t1), .combine = "rbind") %do% {
   tmp_t1 <- read.csv(file.path(data_path, files_t1[i]), header = F) %>% mutate(subj_num = i, time = 1)
   # repetition/session 2
   tmp_t2 <- read.csv(file.path(data_path, files_t2[i]), header = F) %>% mutate(subj_num = i, time = 2)
-  # Condition (0: congruent, 1: neutral, 2: incongruent), Correct (1) or incorrect (0), RT (seconds)
+  # Condition (0: congruent, 1: neutral, 2: incongruent), correct (1) or incorrect (0), RT (seconds)
   names(tmp_t1)[1:6] <- names(tmp_t2)[1:6] <- c("Block", "Trial", "Unused", "Condition", "Correct", "RT")
   rbind(tmp_t1, tmp_t2)
 }
