@@ -6,7 +6,7 @@ Gang Chen (twitter: @gangchen6)
 
 Properly estimating `test-retest reliability` has become a hot topic in recent years. Traditionally test-retest reliability is usually conceptualized and quantitatively estimated as `intraclass correlation` (ICC), whose definition can be found in, for example, this [wikipedia](https://en.wikipedia.org/wiki/Intraclass_correlation) page. The trational ICC formulation works fine when there is no or little measurement error. However, the adoption of ICC can be problematic when measurement accuracy becomes an issue in situations where the quantity under study is measured many times with substantial amount of variability. 
 
-A new modeling framework is needed to handle measurement errors. In experiments where the effect is assessed through many trials, we need to construct a hierarchical/multilevel model that 1) chacterizes/maps the data structure as close to the data structure (or data generative mechanism) as possible, and 2) separates the cross-trial variability from the estimation process of test-retest reliability. It is this hierarchical modeling framework we would like to adopt and demonstrate in this blog. More detailed theorectical discussion from the modeling perspective can be found in the following papers.
+A new modeling framework is needed to estimate test-retest reliabiltiy with measurement errors properly handled. In experiments where the effect is assessed through many trials, we need to construct a hierarchical/multilevel model that 1) chacterizes/maps the data structure as close to the data structure (or data generative mechanism) as possible, and 2) separates the cross-trial variability from the estimation process of test-retest reliability. It is this hierarchical modeling framework we would like to adopt and demonstrate in this blog. More detailed theorectical discussion from the modeling perspective can be found in the following papers.
 
 * Haines et al., 2020. Learning from the Reliability Paradox: How Theoretically Informed Generative Models Can Advance the Social, Behavioral, and Brain Sciences (preprint). PsyArXiv. https://doi.org/10.31234/osf.io/xr7y3
 
@@ -24,53 +24,159 @@ This blog intends to
 
 The modeling framework can be laid as below. Suppose that, in a test-retest experiment, the effect of interest (e.g., reaction time) $y_{crst}$ is measured at trial $t$ ($t=1,2,...,T$) during each of the two repetitions/sessions ($r=1,2$) for subject $s$ ($s=1,2,...,S$) under the condition $c$ ($c=1,2$). If one adopts the conventional ICC formulation, the data would have to be aggregated by collapsing trial dimension and obtain, for example, the average values $\overline{y}_{cs\cdot}$. However, test-retest reliability could be underestimated under some circumstances, and extent of underestimation depends on the relative magnitude of cross-trial variability compared to its cross-subject counterpart (Rouder et al., 2019; Chen et al., 2021). Here we build the following hierarchical model:
 
-trial level: $y_{crst}~\sim ~\mathcal D (\mu_{crs},   \sigma^2);$\
-subject level: $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol S_{4\times 4}).$
+**trial** level: $y_{crst}~\sim ~\mathcal D (\mu_{crs},   \sigma^2);$\
+**subject** level: $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol S_{4\times 4}).$
 
-Here the distribution $\mathcal D$ at the trial level can be any probability density that could properly capture the data generataive mechanism. The typical distributions for reaction time are Gaussian, Student's $t$, exponentially-modified Gaussian, (shifted) log-normal, etc. The variance-covariance matrix $\boldsymbol S_{4\times 4}$ captures the inter-relationships among the effects at the subject level. We know that, after scaling, the variance-covariance matrix $\boldsymbol S_{4\times 4}$ would show the correlation structure among the four components of $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})$. Later I will demonstrate how to extract the jewels in the crown from this matrix $\boldsymbol S_{4\times 4}$. 
+Here the distribution $\mathcal D$ at the trial level can be any probability density that could properly capture the data generataive mechanism. The typical distributions for reaction time are Gaussian, Student's $t$, exponentially-modified Gaussian, (shifted) log-normal, etc. The variance-covariance matrix $\boldsymbol S_{4\times 4}$ captures the inter-relationships among the effects at the subject level. We know that, after scaling, the variance-covariance matrix $\boldsymbol S_{4\times 4}$ would show the correlation structure among the four components of $(\mu_{11s}, \mu_{21s}, \mu_{12s}, \mu_{22s})$. Later I will demonstrate how to extract the jewels in the crown from this matrix $\boldsymbol S_{4\times 4}$ and obtain test-retest reliability for various effects. (*I wish that the model could be expressed more elegantly using vector-matrix formulation, but the math notation support at gihub is quite limited at the moment.*)
 
+Undering the modeling formulation is important. Without jotting a model in mathematical formula, I would have trouble fully grasping a chunk of code (e.g., `brms` implementation). Usually the model can be directly mapped to the code. I'd like to note the following with regard to the hierarchical model for test-retest reliability -
 
-I'd like to note the following few aspects-
+* The crucial aspect of the hierachical model above is that the separation of cross-trial variability -- characterized by the variance $\sigma^2$ at the trial-level formulation -- from the test-retest relialiability (embedded in the variance-covariance matrix $\boldsymbol S_{4\times 4}$ at the subject level. It is the separation that allows the accurate estimation of test-retest reliability through the hierarchicaala model. It is also because of the lack of this seperation in the conventional ICC formulation that leads to the underestiation of test-retest reliability.
 
-The crucial aspect of the hierachical model above is that 
-separation 
+* The hierachical model formulated here is parameterized flatly with all the four combinations (indexed by $c$ and $r$). Personally I consider this parameterization is more intuitive and more generic. That is, the model considered here is differently from all the three papers cited above including my own (Chen et al., 2021).
 
+    * Haines et al. (2020) adopted dummy coding for the two conditions with one condition coded as 1 while the other serves as the reference. Thus, each slope would correspond to the condition contrast (usually the effect of interest) and each intercept is associated with the reference condition per session. I might be wrong, but it seems that a strong assumption was made in Haines et al. (2020) that no correlation exists for the reference condition between the two repetitions/sessions. 
+    * Rouder et al. (2019) use an indicator variable for the two conditions (0.5 for one condition and -0.5 for the other). Under this coding, each slope is the contrast between the two conditions per session, usually the effect of interest while each intercept is the average between the two conditions. One underlying assumption with the model in Rouder et al. (2019) was that no correlation exists between a slope (contrast) and an intercept (average).
+    * Chen et al. (2021) utilized the same indicator and shared the same underlying assumption as Rouder et al. (2019).
+    * The cross-trial variability can be further structured as the subject-level effects. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be: (mirroring the subject-level effects above)
+    
+        **trial** level: $\sigma_{crst}~\sim ~\mathcal N (\pi_{crs},   \tau^2);$\
+        **subject** level: $(\pi_{11s}, \pi_{21s}, \pi_{12s}, \pi_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol T_{4\times 4}).$
+      Fine-tuning the cross-trial variability usually would not have much impact on test-retest reliability estimation, but it may improve the model fit (and sometimes the structure of cross-trial variability could be of theorectical interest).
+        
+### Demo preparation ###
 
+Here I'll use a dataset of Stroop task from Hedge et al. (2018) to demonstrate the hierarchical modeling approach to estimating test-retest reliability. The data were collected from 47 subjects who performed Stroop tasks with 2 conditions (congruent, incongruent), 2 sessions (about three weeks apart), 240 trial per condition per session. First, we download the Stroop data from this publicly accessible [site](https://osf.io/cwzds/) and put them in a directory called `stroop/`. Then, let's steal some `R` code (with slight modification) from Haines's nice [blog](http://haines-lab.com/post/2019-05-29-thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/) and wrange the data a little bit:
 
+```{r }
+library(foreach); library(dplyr); library(tidyr)
 
-A few notes
+### here I assume the download data are stored under directory 'stroop'
+data_path <- "stroop/"      
+files_t1 <- list.files(data_path, pattern = "*1.csv")
+files_t2 <- list.files(data_path, pattern = "*2.csv")
 
-$\sigma$
-
-(I wish that the model could be expressed more elegantly using vector-matrix formulation, but the math notation support at gihub is quite limited at the moment.)
-
-
-$$(\sigma_{11s}, \sigma_{21s}, \sigma_{12s}, \sigma_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, \boldsymbol S_{4\times 4})$$
-
-$$(y_{1st}, ~y_{2st})^T ~\sim ~\mathcal D ((\mu_{c_1 r_1s},  \mu_{2s})^T, \Sigma_{2\times 2})$$
-$$(\mu_{1s}, ~y_{2st})^T ~\sim ~\mathcal D ( $$
-
----
-
-### This is a header
-
-#### Some T-SQL Code
-
-```tsql
-SELECT This, [Is], A, Code, Block -- Using SSMS style syntax highlighting
-    , REVERSE('abc')
-FROM dbo.SomeTable s
-    CROSS JOIN dbo.OtherTable o;
-```
-
-#### Some PowerShell Code
-
-```powershell
-Write-Host "This is a powershell Code block";
-
-# There are many other languages you can use, but the style has to be loaded first
-
-ForEach ($thing in $things) {
-    Write-Output "It highlights it using the GitHub style"
+# Create a data from in long format
+long_stroop <- foreach(i=seq_along(files_t1), .combine = "rbind") %do% {
+  # repetition/session 1
+  tmp_t1 <- read.csv(file.path(data_path, files_t1[i]), header = F) %>% mutate(subj_num = i, time = 1)
+  # repetition/session 2
+  tmp_t2 <- read.csv(file.path(data_path, files_t2[i]), header = F) %>% mutate(subj_num = i, time = 2)
+  # Condition (0: congruent, 1: neutral, 2: incongruent), Correct (1) or incorrect (0), RT (seconds)
+  names(tmp_t1)[1:6] <- names(tmp_t2)[1:6] <- c("Block", "Trial", "Unused", "Condition", "Correct", "RT")
+  rbind(tmp_t1, tmp_t2)
 }
+
+dat <- long_stroop[long_stroop$Condition!=1,]
 ```
+Now, to apply the data to our hierarchical model, we flatten the two factors (condition and session) of $2\times 2$ structure into four combinators with the following `R` code:
+
+```{r}
+dat[dat$Condition==2,'Condition'] <- 'inc' # incongruent
+dat[dat$Condition==0,'Condition'] <- 'con' # congruent
+dat$com <- paste0(dat$Condition, dat$time) # flatten the two factors
+dat$sub <- paste0('s',dat$subj_num).       # subjects
+write.table(dat[,c('sub', 'con', 'RT')], file = "stroop.txt", append = FALSE, quote = F, row.names = F)
+```
+Now, we have a data table called `stroop.txt` with the few lines like this:
+
+```{r}
+sub con RT
+s1 con1 0.89078
+s1 con1 0.72425
+s1 con1 0.49442
+s1 inc1 0.80221
+s1 inc1 0.8327
+...
+```
+With 47 subjects, 2 conditions, 2 sessions, 240 trial per condition per session, we have total 45120 rows in the data table. And we're ready for the next adventure.
+
+### Estimating test-retest reliability using `brms` ###
+
+Now we implement our hierarchical model with the newly obtained data `stroop.txt`. Run the following `R` code:
+
+```{r}
+dat <- read.table('stroop.txt', header=T)
+library('brms')
+options(mc.cores = parallel::detectCores())
+m <- brm(bf(RT ~ 0+con+(0+com|sub), sigma ~ 0+con+(0+com|sub), data=dat, 
+         family=exgaussian, chains = 4, iter=1000)
+save.image(file='stroop.RData')
+```
+
+You may be surprised to notice how simple the code is. The only line that codes our model using `brm` is quite straightforward (if you're familiar with the model grammar used by the `R` package `lme4`) and it directly maps the data to our model. Note that I fit the trial-level effects with an exponentially-modified Gaussian distribution for the probability density $\mathcal D$ in our hierarchicala model above. This implementation may take a few hours (within-chain parallelization would shorten the runtime), so leave your computer alone and come back later.
+
+Let's check the results and make sure the chains behaved properly. The following code
+```{r}
+load('stroop.RData')
+summary(m)
+```
+reveals the summarized results:
+```{r}
+Group-Level Effects: 
+~sub (Number of levels: 47) 
+                                 Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
+sd(concon1)                         0.056     0.006    0.046    0.068 1.014      338      611
+sd(concon2)                         0.061     0.006    0.050    0.074 1.020      373      657
+sd(coninc1)                         0.080     0.008    0.066    0.099 1.009      424      918
+sd(coninc2)                         0.070     0.007    0.057    0.085 1.020      408      739
+sd(sigma_concon1)                   0.426     0.046    0.350    0.526 1.003      713      979
+sd(sigma_concon2)                   0.491     0.052    0.398    0.606 1.008      698     1059
+sd(sigma_coninc1)                   0.415     0.046    0.336    0.515 1.003      719     1245
+sd(sigma_coninc2)                   0.433     0.046    0.352    0.534 1.010      728     1163
+cor(concon1,concon2)                0.738     0.071    0.584    0.854 1.017      390      628
+cor(concon1,coninc1)                0.927     0.027    0.865    0.966 1.005      656     1238
+cor(concon2,coninc1)                0.597     0.097    0.370    0.757 1.016      458      782
+cor(concon1,coninc2)                0.737     0.073    0.572    0.853 1.013      480      603
+cor(concon2,coninc2)                0.948     0.019    0.902    0.977 1.013      942     1341
+cor(coninc1,coninc2)                0.695     0.082    0.504    0.826 1.012      531      829
+cor(sigma_concon1,sigma_concon2)    0.815     0.061    0.676    0.915 1.005      745     1013
+cor(sigma_concon1,sigma_coninc1)    0.921     0.035    0.840    0.974 1.001      799     1156
+cor(sigma_concon2,sigma_coninc1)    0.727     0.082    0.534    0.856 1.002      949     1095
+cor(sigma_concon1,sigma_coninc2)    0.755     0.076    0.588    0.879 1.002      796      834
+cor(sigma_concon2,sigma_coninc2)    0.956     0.024    0.896    0.987 1.001     1168     1269
+cor(sigma_coninc1,sigma_coninc2)    0.757     0.076    0.577    0.874 1.003      981     1235
+
+Population-Level Effects: 
+              Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
+concon1          0.642     0.008    0.626    0.657 1.009      176      416
+concon2          0.621     0.009    0.602    0.638 1.012      282      550
+coninc1          0.705     0.011    0.682    0.727 1.007      182      457
+coninc2          0.662     0.010    0.642    0.683 1.011      278      568
+sigma_concon1   -2.729     0.069   -2.866   -2.599 1.011      303      632
+sigma_concon2   -2.799     0.078   -2.953   -2.647 1.014      316      775
+sigma_coninc1   -2.251     0.067   -2.383   -2.122 1.011      326      732
+sigma_coninc2   -2.437     0.070   -2.575   -2.296 1.016      307      787
+
+Family Specific Parameters: 
+     Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
+beta    0.187     0.001    0.184    0.189 1.000     3948     1820
+
+```
+We should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
+
+```{r}
+pp_check(m, ndraws = 100)
+```
+which reveals that our model did a pretty good job - the simulated data (blue cloud) based on the model fit well with the original RT data:
+
+<img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/ppc.jpg" />
+
+Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution $\mathcal D$ in the model) at the trial level. You may try other distributions such as shifted log-normal (as prefered in Haies et al. (2020), but the alternative distributions such as Gaussian, Student's $t$, and (shifted) log-normal could not compete with the exponentially-modified Gaussian as illustrated in Fig. 5 of Chen et al. (2021). The comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`. In addition, you may also fine-tune the cross-trial variability as discussed above (and as implemented in Haines et al. (2020)).
+
+We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? 
+
+```\{r}
+ge <- ranef(m, summary = FALSE) # Extract Group-Level (or random-effect) Estimate
+trr <- rep(0, 2000)
+for(ii in 1:2000) 
+   trr[ii] <- cor(ge[["sub"]][ii, ,"cominc1"]-ge[["sub"]][ii, ,"comcon1"], 
+                  ge[["sub"]][ii, ,"cominc2"]-ge[["sub"]][ii, ,"comcon2"])
+dens <- density(trr)
+plot(dens, xlim=c(0,1))
+dens$x[which.max(dens$y)]
+```
+
+We have a mode (peak) of 0.82 for the test-retest reliability of the Stroop dataset based on our hierarchical model.
+
+<img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr.jpg" />
