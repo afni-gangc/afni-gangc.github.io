@@ -112,7 +112,7 @@ Let's implement our hierarchical model with the newly obtained data `stroop.txt`
 dat <- read.table('stroop.txt', header=T)
 library('brms')
 options(mc.cores = parallel::detectCores())
-m <- brm(bf(RT ~ 0+con+(0+com|sub), sigma ~ 0+con+(0+com|sub)), data=dat, 
+m <- brm(bf(RT ~ 0+com+(0+com|sub), sigma ~ 0+com+(0+com|sub)), data=dat, 
          family=exgaussian, chains = 4, iter=1000)
 save.image(file='stroop.RData')
 ```
