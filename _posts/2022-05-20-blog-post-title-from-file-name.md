@@ -41,7 +41,7 @@ Undering the modeling formulation is important. Without jotting a model in mathe
     
     * Chen et al. (2021) utilized the same indicator and shared the same underlying assumption as Rouder et al. (2019).
     
-    * The cross-trial variability can be further structured as the subject-level effects. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be: (mirroring the subject-level effects above)
+    * The cross-trial variability can be further structured as the subject-level effects. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be (mirroring the subject-level effects above):
     
         **trial** level: $\sigma_{crst}~\sim ~\mathcal N (\pi_{crs},   \tau^2);$\
         **subject** level: $(\pi_{11s}, \pi_{21s}, \pi_{12s}, \pi_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol T_{4\times 4}).$
