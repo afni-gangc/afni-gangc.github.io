@@ -172,7 +172,7 @@ Family Specific Parameters:
 beta    0.187     0.001    0.184    0.189 1.000     3948     1820
 ```
 
-We should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
+In the above summary above, there is a lot of information to unpackage at various levels (population, condition, correlation, standard deviation, etc). But first, we should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
 
 ```{r}
 pp_check(m, ndraws = 100)
