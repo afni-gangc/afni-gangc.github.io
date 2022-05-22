@@ -33,6 +33,10 @@ The modeling framework can be laid as below. Suppose that, in a test-retest expe
 y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
 \end{equation}--->
 
+```{math}
+y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
+```
+
 **trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);$
 
 **subject** level: $(\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol S_{4\times 4}).$
@@ -41,7 +45,7 @@ Here the distribution $\mathcal D$ at the trial level can be any probability den
 
 The cross-trial variability $\sigma_{crs}$ can be further partitioned among the four combinations between the two factors of condition and session. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be (mirroring the subject-level effects above):
     
-$(\sigma_{11s},\ \sigma_{21s},\ \sigma_{12s},\ \sigma_{22s})^T\  \sim \ \mathcal N((\gamma_{11},\ \gamma_{21},\ \gamma_{12}, \gamma_{22})^T,\ \boldsymbol R_{4\times 4}).$
+$(\sigma_{11s},\ \sigma_{21s},\ \sigma_{12s},\ \sigma_{22s})^T\  \sim \ \mathcal N((\gamma_{11},\ \gamma_{21},\ \gamma_{12},\  \gamma_{22})^T,\ \boldsymbol R_{4\times 4}).$
 
 Below we will adopt a hierarchical model with this fine-tuned structure for cross-trial variability.
 
@@ -53,7 +57,7 @@ Understanding the modeling formulation is important. Without jotting a model in 
 
     * Haines et al. (2020) adopted dummy coding for the two conditions with one condition coded as 1 while the other serves as the reference (0). Thus, each slope would correspond to the condition contrast (usually the effect of interest) and each intercept is associated with the reference condition per session. I might be wrong, but it seems that a strong assumption was made in Haines et al. (2020) that no correlation exists for the reference condition between the two repetitions/sessions. 
     
-    * Rouder et al. (2019) use an indicator variable for the two conditions (0.5 for one condition and -0.5 for the other). Under this coding, each slope is the contrast between the two conditions per session (usually the effect of interest) while each intercept is the average between the two conditions. One underlying assumption with the model in Rouder et al. (2019) was that no correlation exists between a slope (contrast) and an intercept (average). In addition, homogeneity of cross-trial variability was assumed with no finer structure across conditions/sessions.
+    * Rouder et al. (2019) use an indicator variable for the two conditions (0.5 for one condition and -0.5 for the other). Under this coding, each slope is the contrast between the two conditions per session (usually the effect of interest) while each intercept is the average between the two conditions. One underlying assumption with the model in Rouder et al. (2019) was that no correlation exists between a slope (contrast) and an intercept (average). In addition, cross-trial variability was assumed to be flat with no fine structure across conditions/sessions.
     
     * Chen et al. (2021) utilized the same indicator and shared the same underlying assumptions as Rouder et al. (2019).
     
@@ -61,7 +65,7 @@ Understanding the modeling formulation is important. Without jotting a model in 
 
 Here I'll use a dataset of Stroop task from Hedge et al. (2018) to demonstrate the hierarchical modeling approach to estimating test-retest reliability. The data were collected from 47 subjects who performed Stroop tasks with 2 conditions (congruent, incongruent), 2 sessions (about three weeks apart), 240 trial per condition per session. First, we download the Stroop data from this publicly accessible [site](https://osf.io/cwzds/) and put them in a directory called `stroop/`. Then, let's steal some `R` code (with slight modification) from Haines's nice [blog](http://haines-lab.com/post/2019-05-29-thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/) and wrange the data a little bit:
 
-```{r }
+```{r}
 library(foreach); library(dplyr); library(tidyr)
 
 data_path <- "stroop/"  # here I assume the download data are stored under directory 'stroop'
