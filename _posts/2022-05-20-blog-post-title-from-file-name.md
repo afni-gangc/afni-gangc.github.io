@@ -33,9 +33,9 @@ The modeling framework can be laid as below. Suppose that, in a test-retest expe
 y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
 \end{equation}--->
 
-```{math}
+<!--```{math}
 y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
-```
+```--->
 
 **trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);$
 
