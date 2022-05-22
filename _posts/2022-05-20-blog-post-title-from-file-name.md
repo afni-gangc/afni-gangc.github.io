@@ -29,6 +29,10 @@ b) demonstrate the implementation of the hierarhical model using the `R` package
 
 The modeling framework can be laid as below. Suppose that, in a test-retest experiment, the effect of interest (e.g., reaction time) $y_{crst}$ is measured at trial $t$ ($t=1,2,...,T$) during each of the two repetitions/sessions ($r=1,2$) for subject $s$ ($s=1,2,...,S$) under the condition $c$ ($c=1,2$). If one adopts the conventional ICC formulation, the data would have to be aggregated by collapsing trial dimension and obtain, for example, the average values $\overline{y}_{cs\cdot}$. However, test-retest reliability could be underestimated under some circumstances, and the extent of underestimation depends on the relative magnitude of cross-trial variability compared to its cross-subject counterpart (Rouder et al., 2019; Chen et al., 2021). Here we build the following hierarchical model:
 
+\begin{equation}
+y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
+\end{equation}
+
 **trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);$\
 **subject** level: $(\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol S_{4\times 4}).$
 
@@ -117,7 +121,6 @@ library('brms')
 options(mc.cores = parallel::detectCores())
 m <- brm(bf(RT ~ 0+com+(0+com|sub), sigma ~ 0+com+(0+com|sub)), data=dat, 
          family=exgaussian, chains = 4, iter=1000)
-save.image(file='stroop.RData')
 ```
 
 You may be surprised to notice how simple the code is. The only line that codes our model using `brm` is quite straightforward (if you're familiar with the specification grammar used by the `R` package `lme4`) and it directly maps the data to our hierarchical model. Note that I fit the trial-level effects with an exponentially-modified Gaussian distribution for the probability density $\mathcal D$ in our hierarchicala model above. This implementation may take a few hours (within-chain parallelization would shorten the runtime), so leave your computer alone and come back later.
