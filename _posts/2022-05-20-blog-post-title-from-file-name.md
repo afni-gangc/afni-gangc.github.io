@@ -126,6 +126,7 @@ library('brms')
 options(mc.cores = parallel::detectCores())
 m <- brm(bf(RT ~ 0+com+(0+com|sub), sigma ~ 0+com+(0+com|sub)), data=dat, 
          family=exgaussian, chains = 4, iter=1000)
+save.image(file = "stroop.RData")         
 ```
 
 You may be surprised to notice how simple the code is. The only line that codes our model using `brm` is quite straightforward (if you're familiar with the specification grammar used by the `R` package `lme4`) and it directly maps the data to our hierarchical model. Note that I fit the trial-level effects with an exponentially-modified Gaussian distribution for the probability density $\mathcal D$ in our hierarchicala model above. This implementation may take a few hours (within-chain parallelization would shorten the runtime), so leave your computer alone and come back later.
