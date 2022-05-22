@@ -4,9 +4,9 @@ Gang Chen (twitter: @gangchen6)
 
 ### Preface ###
 
-Properly estimating `test-retest reliability` has become a hot topic in recent years. Traditionally test-retest reliability is usually conceptualized and quantitatively estimated as `intraclass correlation` (ICC), whose definition can be found in, for example, this [wikipedia](https://en.wikipedia.org/wiki/Intraclass_correlation) page. Even though there is the tricky issue of assessing its uncertainty, the trational ICC formulation works roughly fine as a point estimate when no or little measurement error is present. However, the adoption of ICC can be problematic when measurement accuracy becomes an issue in situations where the quantity under study is measured many times with substantial amount of variability. This may be related to the issue of reported low ICC values in the pychometrics and neuroimaging literature.
+Properly estimating `test-retest reliability` has become a hot topic in recent years. Traditionally test-retest reliability is usually conceptualized and quantitatively estimated as `intraclass correlation` (ICC), whose definition can be found in, for example, this [wikipedia](https://en.wikipedia.org/wiki/Intraclass_correlation) page. Even though there is the tricky issue of assessing its uncertainty, the trational ICC formulation works roughly fine as a point estimate when no or little measurement error is present. However, the adoption of ICC can be problematic when measurement accuracy becomes an issue in situations where the quantity under study is measured many times with substantial amount of variability. This may be related to the issue of reported low ICC values ("**reliability crisis**") in the pychometrics and neuroimaging literature.
 
-A new modeling framework is needed to estimate test-retest reliabiltiy with measurement errors properly handled. In experiments where the effect is assessed through many trials, we need to construct a hierarchical/multilevel model that 
+A new modeling framework is needed to accurately estimate test-retest reliabiltiy with measurement errors properly handled. In experiments where the effect is assessed through many trials, we need to construct a hierarchical/multilevel model that 
 
 1) chacterizes/maps the data structure as close to the data structure (or data generative mechanism) as possible, and
 
@@ -20,7 +20,7 @@ A new modeling framework is needed to estimate test-retest reliabiltiy with meas
 
 This blog intends to
 
-a) lay out the structure of a hierarchical modeling framework;
+a) lay out the structure of a hierarchical modeling framework under which trial-level effects are segregated from the estimation of test-retest reliability;
 
 b) demonstrate the implementation of the hierarhical model using the `R` package `brms` with a dataset from a Stroop experiment ([Hedge et al., 2018](https://doi.org/10.3758/s13428-017-0935-1)).
 
@@ -49,17 +49,17 @@ $(\sigma_{11s},\ \sigma_{21s},\ \sigma_{12s},\ \sigma_{22s})^T\  \sim \ \mathcal
 
 Below we will adopt a hierarchical model with this fine-tuned structure for cross-trial variability.
 
-Understanding the modeling formulation is important. Without jotting a model in mathematical formula, I would have trouble fully grasping a chunk of code (e.g., `brms` implementation). In fact, usually the model can be directly mapped to the numerical code. I'd like to note the following with regard to the hierarchical model for test-retest reliability -
+Understanding the modeling formulation is important. Without jotting down a model in mathematical formula, I would have trouble fully grasping a chunk of code (e.g., `brms` implementation). In fact, usually the model can be directly mapped to the numerical code. I'd like to note the following with regard to the hierarchical model for test-retest reliability -
 
-* The crucial aspect of the hierachical model above is that the separation of cross-trial variability -- characterized by the variance $\sigma^2$ at the trial-level formulation -- from the test-retest relialiability (embedded in the variance-covariance matrix $\boldsymbol S_{4\times 4}$) at the subject level. It is this separation that allows the accurate estimation of test-retest reliability through the hierarchical model. It is also because of the lack of this seperation in the conventional ICC formulation that leads to the underestiation of test-retest reliability.
+* The crucial aspect of the hierachical model above is that the separation of cross-trial variability -- characterized by the variance $\sigma^2$ at the trial-level formulation -- from the test-retest relialiability (embedded in the variance-covariance matrix $\boldsymbol S_{4\times 4}$) at the subject level. It is this separation that allows the accurate estimation of test-retest reliability through the hierarchical model. It is also because of the lack of this seperation in the conventional ICC formulation that leads to the pollution and **underestiation** of test-retest reliability.
 
 * The hierachical model formulated here is parameterized flatly with all the four combinations (indexed by $c$ and $r$). Personally I consider this parameterization is more intuitive and more generic. That is, the model considered here is slightly different from all the three papers cited above including my own (Chen et al., 2021).
 
     * Haines et al. (2020) adopted dummy coding for the two conditions with one condition coded as 1 while the other serves as the reference (0). Thus, each slope would correspond to the condition contrast (usually the effect of interest) and each intercept is associated with the reference condition per session. I might be wrong, but it seems that a strong assumption was made in Haines et al. (2020) that no correlation exists for the reference condition between the two repetitions/sessions. 
     
-    * Rouder et al. (2019) use an indicator variable for the two conditions (0.5 for one condition and -0.5 for the other). Under this coding, each slope is the contrast between the two conditions per session (usually the effect of interest) while each intercept is the average between the two conditions. One underlying assumption with the model in Rouder et al. (2019) was that no correlation exists between a slope (contrast) and an intercept (average). In addition, cross-trial variability was assumed to be flat with no fine structure across conditions/sessions.
+    * Rouder et al. (2019) used an indicator variable for the two conditions (0.5 for one condition and -0.5 for the other). Under this coding, each slope is the contrast between the two conditions per session (usually the effect of interest) while each intercept is the average between the two conditions. One underlying assumption with the model in Rouder et al. (2019) was that no correlation exists between a slope (contrast) and an intercept (average). In addition, cross-trial variability was assumed to be flat with no fine structure across conditions/sessions.
     
-    * Chen et al. (2021) utilized the same indicator and shared the same underlying assumptions as Rouder et al. (2019).
+    * Chen et al. (2021) utilized the same indicator coding and shared the same underlying assumptions as Rouder et al. (2019).
     
 ### Demo preparation ###
 
