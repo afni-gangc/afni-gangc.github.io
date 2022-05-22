@@ -33,14 +33,15 @@ The modeling framework can be laid as below. Suppose that, in a test-retest expe
 y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
 \end{equation}--->
 
-**trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);$\
+**trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);$
+
 **subject** level: $(\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol S_{4\times 4}).$
 
 Here the distribution $\mathcal D$ at the trial level can be any probability density that could properly capture the data generataive mechanism. The typical distributions for reaction time are Gaussian, Student's $t$, exponentially-modified Gaussian, (shifted) log-normal, etc. $m_{cr}$ is the population-level effect under condition $c$ during repetition $r$. The variance-covariance matrix $\boldsymbol S_{4\times 4}$ captures the inter-relationships among the subject-level effects $\mu_{crs}$. We know that, after scaling, the variance-covariance matrix $\boldsymbol S_{4\times 4}$ would show the correlation structure among the four components of $(\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})$. Later I will demonstrate how to extract the jewels in the crown from this matrix $\boldsymbol S_{4\times 4}$ and obtain test-retest reliability for various effects. (*I wish that the model could be expressed more elegantly using vector-matrix formulation, but the math notation support at github is quite limited at the moment.*)
 
 The cross-trial variability $\sigma_{crs}$ can be further partitioned among the four combinations between the two factors of condition and session. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be (mirroring the subject-level effects above):
     
-$(\sigma_{11s},\ \sigma_{21s},\ \sigma_{12s},\ \sigma_{22s})^T\  \sim \ \mathcal N((\gamma_{11},\ \gamma_{21},\ \gamma_{12}, \gamma_{22})^T,\ \boldsymbol G_{4\times 4}).$
+$(\sigma_{11s},\ \sigma_{21s},\ \sigma_{12s},\ \sigma_{22s})^T\  \sim \ \mathcal N((\gamma_{11},\ \gamma_{21},\ \gamma_{12}, \gamma_{22})^T,\ \boldsymbol R_{4\times 4}).$
 
 Below we will adopt a hierarchical model with this fine-tuned structure for cross-trial variability.
 
