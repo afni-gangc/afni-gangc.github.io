@@ -250,4 +250,4 @@ The plot below shows the posterior distribution of test-retest reliability for c
 
 <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr2.jpg" />
 
-One nice aspect of our parameterization is the easy extraction for an effect of interest. Since the model is directly parameterized with the four combinations of "con1", "con2", "inc1", and "inc2", we could readily obtain other effects such as the average between the two conditions or each individual condition. Needless to say, the correlation structure among the four combinations is fully captured in the hierachical model.
+One nice aspect of our parameterization is the easy extraction for an effect of interest. Since the model is directly parameterized with the four combinations of "con1", "con2", "inc1", and "inc2", we could readily obtain other correlations (e.g., correlation between the average between the two conditions or each individual condition) including the ones for those standard deviations $\tau_{crs}$. Needless to say, the correlation structure among the four combinations is fully captured in the hierachical model.
