@@ -222,7 +222,7 @@ Family Specific Parameters:
 beta    0.186     0.001    0.184    0.189 1.003     4082     1369
 ```
 
-In the  summary above, there is a lot of information to unpack at various levels (population, condition, correlation, standard deviation, etc). For example, you may find the 28 estimated corrrelations for the big matrix $\mathbf \Sigma_{8\times 8}, which is our current focus. But first, we should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
+In the  summary above, there is a lot of information to unpack at various levels (population, condition, correlation, standard deviation, etc). For example, you may find the 28 estimated corrrelations for the big matrix $\mathbf \Sigma_{8\times 8}$, which is our current focus -- those estimated values do seem to justify our adoption of a complex structure for $\mathbf \Sigma_{8\times 8}$. But first, we should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
 
 ```{r}
 pp_check(m, ndraws = 100)
