@@ -150,7 +150,7 @@ dat <- read.table('stroop.txt', header=T)
 library('brms')
 options(mc.cores = parallel::detectCores())
 m <- brm(bf(RT ~ 0+com+(0+com|c|sub), sigma ~ 0+com+(0+com|c|sub)), data=dat, 
-         family=exgaussian, chains = 4, iter=1000)
+         family=exgaussian, chains=4, iter=1000)
 save.image(file = "stroop.RData")         
 ```
 
