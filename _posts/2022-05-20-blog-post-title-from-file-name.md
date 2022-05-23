@@ -80,7 +80,7 @@ Understanding the modeling formulation is important. Without jotting down a mode
 
 * The hierachical model formulated here is parameterized flatly with all the four combinations (indexed by $c$ and $r$). Personally I consider this parameterization is more intuitive and more generic. That is, the model considered here is slightly different from all the three papers cited above including my own ([Chen et al., 2021](https://doi.org/10.1016/j.neuroimage.2021.118647)).
 
-    * Haines et al. (2020) adopted dummy coding for the two conditions with one condition coded as 1 while the other serves as the reference (0). Thus, each slope would correspond to the condition contrast (usually the effect of interest) and each intercept is associated with the reference condition per session. I might be wrong, but it seems that a strong assumption was made in Haines et al. (2020) that no correlation exists for the reference condition between the two repetitions/sessions. 
+    * Haines et al. (2020) adopted dummy coding for the two conditions with one condition coded as 1 while the other serves as the reference (0). Thus, each slope would correspond to the condition contrast (usually the effect of interest) and each intercept is associated with the reference condition per session. I might be wrong, but it seems that a strong assumption was made in Haines et al. (2020) that no correlation exists between the condition contrast and the reference condition as well as for the reference condition between the two repetitions/sessions. 
     
     * Rouder et al. (2019) used an indicator variable for the two conditions (0.5 for one condition and -0.5 for the other). Under this coding, each slope is the contrast between the two conditions per session (usually the effect of interest) while each intercept is the average between the two conditions. One underlying assumption with the model in Rouder et al. (2019) was that no correlation exists between a slope (contrast) and an intercept (average). In addition, cross-trial variability was assumed to be flat with no fine structure across conditions/sessions.
     
@@ -222,7 +222,7 @@ Family Specific Parameters:
 beta    0.186     0.001    0.184    0.189 1.003     4082     1369
 ```
 
-In the  summary above, there is a lot of information to unpack at various levels (population, condition, correlation, standard deviation, etc). For example, you may find the 28 estimated corrrelations for the $\mathbf \Sigma_{8\times 8}, which is our current focus. But first, we should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
+In the  summary above, there is a lot of information to unpack at various levels (population, condition, correlation, standard deviation, etc). For example, you may find the 28 estimated corrrelations for the big matrix $\mathbf \Sigma_{8\times 8}, which is our current focus. But first, we should be happy that the four chains were well-behaved ($\hat R < 1.05$). In addition, we can use posterior predictive checks to verify the model quality:
 
 ```{r}
 pp_check(m, ndraws = 100)
