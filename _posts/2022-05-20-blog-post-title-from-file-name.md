@@ -39,7 +39,8 @@ y_{crst} ~ &\sim ~\mathcal D (\alpha_{crs}, \ \sigma_{crs}^2)\\\\
     \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix},\ \\mathbf \Sigma_{8\times 8} 
     \\right) \\\\
 \\end{align\*}
-$$    
+$$
+
 <!--\\begin{bmatrix} \mu_{11s} \\\\ \mu_{21s} \\\\ \mu_{12s} \\\\ \mu_{22s} \\end{bmatrix} &\ \\sim
  \ \\operatorname{Normal} \\left ( 
     \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix},\ \\mathbf S_{4\times 4} 
@@ -52,7 +53,6 @@ $$
  \ \\operatorname{Normal} \\left ( 
     \\begin{bmatrix} 0 \\\\ 0 \\end{bmatrix},\ \\mathbf V_{2\times 2}^{(cr)} 
     \\right) \\\\--->  
-
 
 <!--\begin{equation}
 y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
