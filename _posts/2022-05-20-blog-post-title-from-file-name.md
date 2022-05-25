@@ -31,13 +31,13 @@ Let's first set the stage for our modeling framework. Suppose that, in a test-re
 
 $$
 \begin{aligned}
-y_{crst} ~ &\sim ~\mathcal D (\alpha_{crs}, \ \sigma_{crs}^2)\\\\
+y_{crst} ~ &\sim ~\mathcal D (\alpha_{crs}, \ \sigma_{crs}^2)\\
 \alpha_{crs}\ &=\ m_{cr}\ +\ \mu_{crs}\\\\
-\sigma_{crs}\ &=\ \gamma_{cr}\ +\ \tau_{crs}\\\\
-\begin{bmatrix} \mu_{11s} \\\\ \mu_{21s} \\\\ \mu_{12s} \\\\ \mu_{22s} \\\\  \tau_{11s} \\\\ \tau_{21s} \\\\ \tau_{12s} \\\\ \tau_{22s} \end{bmatrix} &\ \\sim
- \ \\operatorname{Normal} \\left ( 
-    \begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \\\\ 0 \end{bmatrix},\ \\mathbf \Sigma_{8\times 8} 
-    \\right) \\\\
+\sigma_{crs}\ &=\ \gamma_{cr}\ +\ \tau_{crs}\\
+\begin{bmatrix} \mu_{11s} \\ \mu_{21s} \\ \mu_{12s} \\ \mu_{22s} \\  \tau_{11s} \\ \tau_{21s} \\ \tau_{12s} \\ \tau_{22s} \end{bmatrix} &\ \sim
+ \ \operatorname{Normal} \left ( 
+    \begin{bmatrix} 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{bmatrix},\ \mathbf \Sigma_{8\times 8} 
+    \right) \\\\
 \end{aligned}
 $$
 
