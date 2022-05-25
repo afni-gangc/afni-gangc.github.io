@@ -190,7 +190,7 @@ cor(cominc2,sigma_comcon1)          0.601     0.093    0.398    0.762 1.002     
 cor(comcon1,sigma_comcon2)          0.467     0.107    0.245    0.659 1.002      448      727
 cor(comcon2,sigma_comcon2)          0.652     0.080    0.472    0.792 1.002      660      822
 cor(cominc1,sigma_comcon2)          0.455     0.108    0.225    0.644 1.002      543     1089
-cor(coninc2,sigma_comcon2)          0.767     0.065    0.624    0.870 1.003      891     1028
+cor(cominc2,sigma_comcon2)          0.767     0.065    0.624    0.870 1.003      891     1028
 cor(sigma_comcon1,sigma_comcon2)    0.743     0.075    0.566    0.864 1.000      977     1598
 cor(comcon1,sigma_cominc1)          0.521     0.105    0.301    0.700 1.006      548      916
 cor(comcon2,sigma_cominc1)          0.330     0.118    0.081    0.547 1.002      621      773
