@@ -169,53 +169,53 @@ Group-Level Effects:
 Group-Level Effects: 
 ~sub (Number of levels: 47) 
                                  Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
-sd(concon1)                         0.052     0.005    0.043    0.064 1.009      216      190
-sd(concon2)                         0.058     0.006    0.048    0.070 1.007      256      297
-sd(coninc1)                         0.072     0.007    0.060    0.088 1.009      244      521
-sd(coninc2)                         0.061     0.005    0.051    0.073 1.003      369      566
-sd(sigma_concon1)                   0.377     0.037    0.312    0.459 1.004      521      823
-sd(sigma_concon2)                   0.436     0.040    0.366    0.524 1.004      593      766
-sd(sigma_coninc1)                   0.381     0.038    0.311    0.466 1.002      524      662
-sd(sigma_coninc2)                   0.412     0.041    0.343    0.502 1.001      655     1067
-cor(concon1,concon2)                0.668     0.079    0.499    0.806 1.008      284      484
-cor(concon1,coninc1)                0.884     0.038    0.798    0.943 1.007      579     1103
-cor(concon2,coninc1)                0.480     0.106    0.256    0.674 1.003      453      874
-cor(concon1,coninc2)                0.651     0.082    0.474    0.796 1.006      339      535
-cor(concon2,coninc2)                0.901     0.034    0.823    0.952 1.002      844     1261
-cor(coninc1,coninc2)                0.607     0.088    0.416    0.761 1.003      492      739
-cor(concon1,sigma_concon1)          0.646     0.087    0.449    0.795 1.002      541      810
-cor(concon2,sigma_concon1)          0.563     0.095    0.351    0.725 1.003      643     1024
-cor(coninc1,sigma_concon1)          0.660     0.087    0.472    0.812 1.006      549      967
-cor(coninc2,sigma_concon1)          0.601     0.093    0.398    0.762 1.002      637     1282
-cor(concon1,sigma_concon2)          0.467     0.107    0.245    0.659 1.002      448      727
-cor(concon2,sigma_concon2)          0.652     0.080    0.472    0.792 1.002      660      822
-cor(coninc1,sigma_concon2)          0.455     0.108    0.225    0.644 1.002      543     1089
-cor(coninc2,sigma_concon2)          0.767     0.065    0.624    0.870 1.003      891     1028
-cor(sigma_concon1,sigma_concon2)    0.743     0.075    0.566    0.864 1.000      977     1598
-cor(concon1,sigma_coninc1)          0.521     0.105    0.301    0.700 1.006      548      916
-cor(concon2,sigma_coninc1)          0.330     0.118    0.081    0.547 1.002      621      773
-cor(coninc1,sigma_coninc1)          0.716     0.071    0.548    0.836 1.001      797     1066
-cor(coninc2,sigma_coninc1)          0.505     0.100    0.288    0.683 1.000      686      875
-cor(sigma_concon1,sigma_coninc1)    0.867     0.051    0.741    0.946 1.002     1014     1615
-cor(sigma_concon2,sigma_coninc1)    0.627     0.096    0.417    0.786 1.002      852     1106
-cor(concon1,sigma_coninc2)          0.333     0.118    0.090    0.549 1.004      494      749
-cor(concon2,sigma_coninc2)          0.428     0.113    0.179    0.630 1.000      617      993
-cor(coninc1,sigma_coninc2)          0.427     0.109    0.186    0.618 1.001      574      962
-cor(coninc2,sigma_coninc2)          0.669     0.078    0.494    0.797 1.001      719     1046
-cor(sigma_concon1,sigma_coninc2)    0.638     0.092    0.441    0.796 1.000      988     1408
-cor(sigma_concon2,sigma_coninc2)    0.912     0.037    0.821    0.964 1.001     1201     1537
-cor(sigma_coninc1,sigma_coninc2)    0.659     0.090    0.457    0.808 1.001     1060     1283
+sd(comcon1)                         0.052     0.005    0.043    0.064 1.009      216      190
+sd(comcon2)                         0.058     0.006    0.048    0.070 1.007      256      297
+sd(cominc1)                         0.072     0.007    0.060    0.088 1.009      244      521
+sd(cominc2)                         0.061     0.005    0.051    0.073 1.003      369      566
+sd(sigma_comcon1)                   0.377     0.037    0.312    0.459 1.004      521      823
+sd(sigma_comcon2)                   0.436     0.040    0.366    0.524 1.004      593      766
+sd(sigma_cominc1)                   0.381     0.038    0.311    0.466 1.002      524      662
+sd(sigma_cominc2)                   0.412     0.041    0.343    0.502 1.001      655     1067
+cor(comcon1,comcon2)                0.668     0.079    0.499    0.806 1.008      284      484
+cor(comcon1,cominc1)                0.884     0.038    0.798    0.943 1.007      579     1103
+cor(comcon2,cominc1)                0.480     0.106    0.256    0.674 1.003      453      874
+cor(comcon1,cominc2)                0.651     0.082    0.474    0.796 1.006      339      535
+cor(comcon2,cominc2)                0.901     0.034    0.823    0.952 1.002      844     1261
+cor(cominc1,cominc2)                0.607     0.088    0.416    0.761 1.003      492      739
+cor(comcon1,sigma_comcon1)          0.646     0.087    0.449    0.795 1.002      541      810
+cor(comcon2,sigma_comcon1)          0.563     0.095    0.351    0.725 1.003      643     1024
+cor(cominc1,sigma_comcon1)          0.660     0.087    0.472    0.812 1.006      549      967
+cor(cominc2,sigma_comcon1)          0.601     0.093    0.398    0.762 1.002      637     1282
+cor(comcon1,sigma_comcon2)          0.467     0.107    0.245    0.659 1.002      448      727
+cor(comcon2,sigma_comcon2)          0.652     0.080    0.472    0.792 1.002      660      822
+cor(cominc1,sigma_comcon2)          0.455     0.108    0.225    0.644 1.002      543     1089
+cor(coninc2,sigma_comcon2)          0.767     0.065    0.624    0.870 1.003      891     1028
+cor(sigma_comcon1,sigma_comcon2)    0.743     0.075    0.566    0.864 1.000      977     1598
+cor(comcon1,sigma_cominc1)          0.521     0.105    0.301    0.700 1.006      548      916
+cor(comcon2,sigma_cominc1)          0.330     0.118    0.081    0.547 1.002      621      773
+cor(cominc1,sigma_cominc1)          0.716     0.071    0.548    0.836 1.001      797     1066
+cor(cominc2,sigma_cominc1)          0.505     0.100    0.288    0.683 1.000      686      875
+cor(sigma_comcon1,sigma_cominc1)    0.867     0.051    0.741    0.946 1.002     1014     1615
+cor(sigma_comcon2,sigma_cominc1)    0.627     0.096    0.417    0.786 1.002      852     1106
+cor(comcon1,sigma_cominc2)          0.333     0.118    0.090    0.549 1.004      494      749
+cor(comcon2,sigma_cominc2)          0.428     0.113    0.179    0.630 1.000      617      993
+cor(cominc1,sigma_cominc2)          0.427     0.109    0.186    0.618 1.001      574      962
+cor(cominc2,sigma_cominc2)          0.669     0.078    0.494    0.797 1.001      719     1046
+cor(sigma_comcon1,sigma_cominc2)    0.638     0.092    0.441    0.796 1.000      988     1408
+cor(sigma_comcon2,sigma_cominc2)    0.912     0.037    0.821    0.964 1.001     1201     1537
+cor(sigma_cominc1,sigma_cominc2)    0.659     0.090    0.457    0.808 1.001     1060     1283
 
 Population-Level Effects: 
               Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
-concon1          0.641     0.008    0.625    0.658 1.020      113      134
-concon2          0.620     0.009    0.603    0.636 1.023      145      337
-coninc1          0.705     0.012    0.683    0.730 1.014      126      119
-coninc2          0.663     0.010    0.644    0.682 1.019      144      306
-sigma_concon1   -2.732     0.062   -2.855   -2.606 1.012      173      359
-sigma_concon2   -2.805     0.069   -2.945   -2.670 1.015      192      346
-sigma_coninc1   -2.249     0.061   -2.367   -2.121 1.007      203      429
-sigma_coninc2   -2.438     0.065   -2.562   -2.308 1.013      267      436
+comcon1          0.641     0.008    0.625    0.658 1.020      113      134
+comcon2          0.620     0.009    0.603    0.636 1.023      145      337
+cominc1          0.705     0.012    0.683    0.730 1.014      126      119
+cominc2          0.663     0.010    0.644    0.682 1.019      144      306
+sigma_comcon1   -2.732     0.062   -2.855   -2.606 1.012      173      359
+sigma_comcon2   -2.805     0.069   -2.945   -2.670 1.015      192      346
+sigma_cominc1   -2.249     0.061   -2.367   -2.121 1.007      203      429
+sigma_cominc2   -2.438     0.065   -2.562   -2.308 1.013      267      436
 
 Family Specific Parameters: 
      Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
