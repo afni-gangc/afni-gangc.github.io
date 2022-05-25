@@ -88,7 +88,7 @@ Understanding the modeling formulation is important. Without jotting down a mode
     
 ### Demo preparation ###
 
-Here I'll use a dataset of Stroop task from Hedge et al. (2018) to demonstrate the hierarchical modeling approach to estimating test-retest reliability. The data were collected from 47 subjects who performed Stroop tasks with 2 conditions (congruent, incongruent), 2 sessions (about three weeks apart), 240 trial per condition per session. First, we download the Stroop data from this publicly accessible [site](https://osf.io/cwzds/) and put them in a directory called `stroop/`. Then, let's steal some `R` code (with slight modification) from Haines's nice [blog](http://haines-lab.com/post/2019-05-29-thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/) and wrange the data a little bit:
+Here I'll use a dataset of Stroop task from Hedge et al. (2018) to demonstrate the hierarchical modeling approach to estimating test-retest reliability. The data were collected from 47 subjects who performed Stroop tasks with 2 conditions (congruent, incongruent), 2 sessions (about three weeks apart), 240 trials per condition per session. First, we download the Stroop data from this publicly accessible [site](https://osf.io/cwzds/) and put them in a directory called `stroop/`. Then, let's steal some `R` code (with slight modification) from Haines's nice [blog](http://haines-lab.com/post/2019-05-29-thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/thinking-generatively-why-do-we-use-atheoretical-statistical-models-to-test-substantive-psychological-theories/) and wrange the data a little bit:
 
 ```{r}
 library(foreach); library(dplyr); library(tidyr)
@@ -122,7 +122,7 @@ write.table(dat[,c('sub', 'con', 'RT')], file = "stroop.txt", append = FALSE, qu
 ```
 Now, we have a data table called `stroop.txt` with the few lines like this:
 
-```{r}
+```
 sub con RT
 s1 con1 0.89078
 s1 con1 0.72425
@@ -132,7 +132,7 @@ s1 inc1 0.8327
 ...
 ```
 
-With 47 subjects, 2 conditions, 2 sessions, 240 trial per condition per session, there are total 45120 rows in the data table. We purposefully flatten the two factor so that we have a factor with four levels:
+With 47 subjects, 2 conditions, 2 sessions, 240 trials per condition per session, there are total 45120 rows in the data table. We purposefully flatten the two factor so that we have a factor with four levels:
 
 ```{r}
 levels(dat$com)
