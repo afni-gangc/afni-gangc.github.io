@@ -6,7 +6,7 @@ Gang Chen (twitter: @gangchen6)
 
 Properly estimating `test-retest reliability` has become a hot topic in recent years. Traditionally test-retest reliability is usually conceptualized and quantitatively estimated as `intraclass correlation` (ICC), whose definition can be found in, for example, this [wikipedia](https://en.wikipedia.org/wiki/Intraclass_correlation) page. Even though there is the tricky issue of assessing its uncertainty, the trational ICC formulation works roughly fine as a point estimate when no or little measurement error is present. However, the adoption of ICC can be problematic when measurement accuracy becomes an issue in situations where the quantity under study is measured many times with substantial amount of variability. This may be related to the issue of reported low ICC values ("**reliability crisis**") in the pychometrics and neuroimaging literature.
 
-A new modeling framework is needed to accurately estimate test-retest reliabiltiy with measurement errors properly handled. In experiments where the effect is assessed through many trials, we need to construct a hierarchical/multilevel model that 
+A new modeling framework is needed to accurately estimate test-retest reliabiltiy with measurement errors properly handled. In experiments where the effect is assessed through many trials, we intend to construct a hierarchical/multilevel model that 
 
 1) chacterizes/maps the data structure as close to the data structure (or data generative mechanism) as possible, and
 
