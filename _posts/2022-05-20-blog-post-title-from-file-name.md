@@ -123,7 +123,7 @@ write.table(dat[,c('sub', 'con', 'RT')], file = "stroop.txt", append = FALSE, qu
 Now, we have a data table called `stroop.txt` with the few lines like this:
 
 ```
-sub con RT
+sub com RT
 s1 con1 0.89078
 s1 con1 0.72425
 s1 con1 0.49442
