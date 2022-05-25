@@ -12,11 +12,11 @@ A new modeling framework is needed to accurately estimate test-retest reliabilti
 
 2) separates the cross-trial variability from the estimation process of test-retest reliability. It is this hierarchical modeling framework we would like to adopt and demonstrate in this blog. More detailed theorectical discussion from the modeling perspective can be found in the following papers.
 
-* Haines et al., 2020. Learning from the Reliability Paradox: How Theoretically Informed Generative Models Can Advance the Social, Behavioral, and Brain Sciences (preprint). PsyArXiv. https://doi.org/10.31234/osf.io/xr7y3
+* Haines et al., 2020. [Learning from the Reliability Paradox: How Theoretically Informed Generative Models Can Advance the Social, Behavioral, and Brain Sciences (preprint).](https://doi.org/10.3758/s13423-018-1558-y) PsyArXiv.
 
-* Rouder, J.N., Haaf, J.M., 2019. A psychometrics of individual differences in experimental tasks. Psychon Bull Rev 26, 452–467. https://doi.org/10.3758/s13423-018-1558-y
+* Rouder, J.N., Haaf, J.M., 2019. [A psychometrics of individual differences in experimental tasks.](https://doi.org/10.3758/s13423-018-1558-y) Psychon Bull Rev 26, 452–467.
 
-* Chen et al., 2021. Trial and error: A hierarchical modeling approach to test-retest reliability. NeuroImage 245, 118647. https://doi.org/10.1016/j.neuroimage.2021.118647
+* Chen et al., 2021. [Trial and error: A hierarchical modeling approach to test-retest reliability.](https://doi.org/10.1016/j.neuroimage.2021.118647) NeuroImage 245, 118647.
 
 This blog intends to
 
