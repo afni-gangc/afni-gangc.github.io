@@ -269,4 +269,4 @@ Both [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647) and 
 
 <!--One nice aspect of our parameterization is the easy extraction for an effect of interest. Since the model is directly parameterized with the four combinations of `con1`, `con2`, `inc1`, and `inc2`, we could readily obtain other correlations (e.g., correlation between the average between the two conditions or each individual condition) including the ones for those standard deviations \\(\tau_{crs}\\). Needless to say, the correlation structure among the four combinations is fully captured in the hierachical model.-->
 
-[^1]thanks to Donald Williams for suggesting the incorporation of correlations between location and scale parameters in this [twitter thread](https://twitter.com/wdonald_1985/status/1528513338803490816)
+[^1]: thanks to Donald Williams for suggesting the incorporation of correlations between location and scale parameters in this [twitter thread](https://twitter.com/wdonald_1985/status/1528513338803490816)
