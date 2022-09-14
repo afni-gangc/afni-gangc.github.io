@@ -74,7 +74,7 @@ $(\sigma_{11s},\ \sigma_{21s},\ \sigma_{12s},\ \sigma_{22s})^T\  \sim \ \mathcal
 
 Below we will adopt a hierarchical model with this fine-tuned structure for cross-trial variability.--->
 
-Understanding the modeling formulation is important. Without jotting down a model in mathematical formula, I would have trouble fully grasping a chunk of code (e.g., `brms` implementation). In fact, usually the model can be directly mapped to the numerical code. I'd like to note the following with regard to the hierarchical model for test-retest reliability -
+Understanding the modeling formulation is important. Without jotting down a model in mathematical formula, I would have trouble fully grasping a chunk of code (e.g., `brms` implementation). In fact, usually the model can be directly mapped to the numerical code. I'd like to note the following about the hierarchical model for test-retest reliability -
 
 * The crucial aspect of the hierarchical model above is that the separation of cross-trial variability -- characterized by the variance \\(\sigma^2\\) at the trial-level formulation -- from the test-retest reliability (embedded in the variance-covariance matrix \\(\boldsymbol S_{4\times 4}\\)) at the subject level. It is this separation that allows the accurate estimation of test-retest reliability through the hierarchical model. It is also because of the lack of this separation in the conventional ICC formulation that leads to the pollution and **underestimation** of test-retest reliability.
 
@@ -132,7 +132,7 @@ s1 inc1 0.8327
 ...
 ```
 
-With 47 subjects, 2 conditions, 2 sessions, 240 trials per condition per session, there are total 45120 rows in the data table. We purposefully flatten the two factor so that we have a factor with four levels:
+With 47 subjects, 2 conditions, 2 sessions, 240 trials per condition per session, there are total 45120 rows in the data table. We purposefully flatten the two factors so that we have a factor with four levels:
 
 ```{r}
 levels(dat$com)
