@@ -237,13 +237,13 @@ Is there any room for model improvement? Remember that we used exponentially-mod
 We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? All the information is embedded in the variance-covariance matrix \\(\mathbf \Sigma_{8\times 8}\\). So, here comes our finale[^2]:
 
 ```\{r}
-S <- VarCorr(m, summary=F) # retrieve draws for the Sigma matrix
-C  <- matrix(c(1,0,-1,0,0,1,0,-1), ncol=2, nrow=4)  # contrast matrix for the contrast between the 2 conditions
-vc <- apply(S$sub$cov[,1:4,1:4], 1, function(x) t(C)%*%x%*%C) # compute the var-cov matrix across the 2 sessions for the contrast
-trr <- apply(vc, 2, function(x) x[2]/sqrt(x[1]*x[4])) # draws for TRR
-plot(density(trr), xlab='Test-Retest Reliability')    # plot TRR distribution
+S   <- VarCorr(m, summary=F)                                   # retrieve draws for the Sigma matrix
+C   <- matrix(c(1,0,-1,0,0,1,0,-1), ncol=2, nrow=4)            # contrast matrix for the contrast between the 2 conditions
+vc  <- apply(S$sub$cov[,1:4,1:4], 1, function(x) t(C)%*%x%*%C) # compute the var-cov matrix across the 2 sessions for the contrast
+trr <- apply(vc, 2, function(x) x[2]/sqrt(x[1]*x[4]))          # draws for TRR
+plot(density(trr), xlab='Test-Retest Reliability')             # plot TRR distribution
 dens <- density(trr)
-dens$x[which.max(dens$y)]  # show the peak of the TRR density curve
+dens$x[which.max(dens$y)]                                      # show the peak of the TRR density curve
 ```
 
 <!-- Remember those four levels of `con1`, `con2`, `inc1`, and `inc2` correspond to congruent during session 1, congruent during session 2, incongruent during session 1, and incongruent during session 2. Since in the current context, we are interested in the test-retest reliability about the contrast between incongruent and congruent. So we want to extract those model components of \\((\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})\\), and then obtain the correlation between \\(\mu_{21s}\ -\ \mu_{11s}\\) and \\(\mu_{22s}\ -\ \mu_{21s})\\). Here comes our finale:
