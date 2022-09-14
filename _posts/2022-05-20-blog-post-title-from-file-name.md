@@ -263,7 +263,7 @@ The plot below shows the posterior distribution of test-retest reliability for c
 
 <!-- <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr2.jpg" /> 
 -->
-<img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr2.jpg" />
+<img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr.png" />
 
 Both [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647) and [Haines et al., 2020](https://doi.org/10.3758/s13423-018-1558-y) used this Stroop dataset as a demo. It is worth noting that the estimated test-retest reliability here is similar to Chen et al. (2021) but to some extent different from Haines et al., 2020, likely due to the stronger assumption regarding the variance-covariance structure in \\(\\mathbf \Sigma_{8\times 8}\\) that is mentioned earlier in the blog.
 
