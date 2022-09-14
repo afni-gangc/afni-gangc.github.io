@@ -234,7 +234,7 @@ which shows that our model did a pretty good job - the simulated data (green clo
 
 Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution \\(\mathcal D\\) in the model) at the trial level. One may try other distributions such as shifted log-normal (as prefered in Haines et al. (2020)), Gaussian, inversge Gaussian, or Student's \\(t\\). In the current case, those alternative distributions could not compete with the exponentially-modified Gaussian as visually illustrated through posterior predictive checks as Fig. 5 in [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647). Comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`. Keep in mind that even though exponentially-modified Gaussian worked well for this particular dataset, a different distribution (e.g., shifted log-normal) might be more appropriate for another dataset.
 
-We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? All the information is embedded in the variance-covariance matrix \\(\mathbf \Sigma_{8\times 8}\\). So, here comes our finale (thanks to Michael Freund for suggesting an improvement upon my previous approach):
+We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? All the information is embedded in the variance-covariance matrix \\(\mathbf \Sigma_{8\times 8}\\). So, here comes our finale[^2]:
 
 ```\{r}
 S <- VarCorr(m, summary=F) # retrieve draws for the Sigma matrix
@@ -269,4 +269,5 @@ Both [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647) and 
 
 <!--One nice aspect of our parameterization is the easy extraction for an effect of interest. Since the model is directly parameterized with the four combinations of `con1`, `con2`, `inc1`, and `inc2`, we could readily obtain other correlations (e.g., correlation between the average between the two conditions or each individual condition) including the ones for those standard deviations \\(\tau_{crs}\\). Needless to say, the correlation structure among the four combinations is fully captured in the hierachical model.-->
 
-[^1]: thanks to Donald Williams for suggesting the incorporation of correlations between location and scale parameters in this [twitter thread](https://twitter.com/wdonald_1985/status/1528513338803490816)
+[^1]: Thanks to Donald Williams for suggesting the incorporation of correlations between location and scale parameters in this [twitter thread](https://twitter.com/wdonald_1985/status/1528513338803490816)
+[^2]: Thanks to Michael Freund for suggesting an improvement upon my previous approach.
