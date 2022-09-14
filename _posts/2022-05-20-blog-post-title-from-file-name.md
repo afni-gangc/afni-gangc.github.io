@@ -234,7 +234,19 @@ which shows that our model did a pretty good job - the simulated data (green clo
 
 Is there any room for model improvement? Remeber that we used exponentially-modified Gaussian to fit the data (distribution \\(\mathcal D\\) in the model) at the trial level. One may try other distributions such as shifted log-normal (as prefered in Haines et al. (2020)), Gaussian, inversge Gaussian, or Student's \\(t\\). In the current case, those alternative distributions could not compete with the exponentially-modified Gaussian as visually illustrated through posterior predictive checks as Fig. 5 in [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647). Comparisons among these models can also be quantitively assessed through leave-one-out cross-validation using the function `loo` in `brms`. Keep in mind that even though exponentially-modified Gaussian worked well for this particular dataset, a different disttribution (e.g., shifted log-normal) might be more appropriate for another dataset.
 
-We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? <!-- Remember those four levels of `con1`, `con2`, `inc1`, and `inc2` correspond to congruent during session 1, congruent during session 2, incongruent during session 1, and incongruent during session 2. Since in the current context, we are interested in the test-retest reliability about the contrast between incongruent and congruent. So we want to extract those model components of \\((\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})\\), and then obtain the correlation between \\(\mu_{21s}\ -\ \mu_{11s}\\) and \\(\mu_{22s}\ -\ \mu_{21s})\\). Here comes our finale:
+We should not forget our ultimate goal: estimating test-retest reliability! How to extract the information from the model output? All the information is embedded in the variance-covariance matrix \mathbf \Sigma_{8\times 8}. So, here comes our finale:
+
+```\{r}
+S <- VarCorr(m, summary=F) # retrieve draws for the Sigma matrix
+C  <- matrix(c(1,0,-1,0,0,1,0,-1), ncol=2, nrow=4)  # contrast matrix for the contrast between the 2 conditions
+vc <- apply(S$sub$cov[,1:4,1:4], 1, function(x) t(C)%*%x%*%C) # compute the var-cov matrix across the 2 sessions for the contrast
+trr <- apply(vc, 2, function(x) x[2]/sqrt(x[1]*x[4])) # draws for TRR
+plot(density(trr), xlab='Test-Retest Reliability')    # plot TRR distribution
+dens <- density(trr)
+dens$x[which.max(dens$y)]  # show the peak of the TRR density curve
+```
+
+<!-- Remember those four levels of `con1`, `con2`, `inc1`, and `inc2` correspond to congruent during session 1, congruent during session 2, incongruent during session 1, and incongruent during session 2. Since in the current context, we are interested in the test-retest reliability about the contrast between incongruent and congruent. So we want to extract those model components of \\((\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})\\), and then obtain the correlation between \\(\mu_{21s}\ -\ \mu_{11s}\\) and \\(\mu_{22s}\ -\ \mu_{21s})\\). Here comes our finale:
 
 ```\{r}
 ge <- ranef(m, summary = FALSE) # extract subject-Level effects
@@ -245,20 +257,12 @@ dens <- density(trr)
 plot(density(trr), xlim=c(0.4,1), xlab='Test-Retest Reliability')
 dens$x[which.max(dens$y)]  # show the peak of the density curve
 ```
---> All the information is embedded in the variance-covariance matrix \mathbf \Sigma_{8\times 8}. So, here comes our finale:
-```\{r}
-S <- VarCorr(m, summary=F) # retrieve draws for the Sigma matrix
-C  <- matrix(c(1,0,-1,0,0,1,0,-1), ncol=2, nrow=4)  # contrast matrix for the contrast between the 2 conditions
-vc <- apply(S$sub$cov[,1:4,1:4], 1, function(x) t(C)%*%x%*%C) # compute the var-cov matrix across the 2 sessions for the contrast
-trr <- apply(vc, 2, function(x) x[2]/sqrt(x[1]*x[4])) # draws for TRR
-plot(density(trr), xlab='Test-Retest Reliability')    # plot TRR distribution
-dens <- density(trr)
-dens$x[which.max(dens$y)]  # show the peak of the TRR density curve
-```   
+--> 
 
 The plot below shows the posterior distribution of test-retest reliability for cognitive inhibition effect (reaction time difference between incongruent and congruent conditions). Based on our hierarchical model, the mode (peak) for the test-retest reliability of the Stroop dataset is about 0.72, indicatsing that the underestimation by the conventional ICC(3,1) \\(\simeq \\) 0.5 is quite substantial. The "**reliability crisis**" in psychometrics and neuroimaging might be partly caused by improper modeling. The reason for this large extent of underestimation is due to the substantial amount of cross-trial variablity compared to cross-subject variability. See more explanation in [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647) regarding the intriguing issue of cross-trial variablity as well as the crucial role of trial sample size relative to the subject sample size. 
 
-<!-- <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr2.jpg" /> -->
+<!-- <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr2.jpg" /> 
+-->
 <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr2.jpg" />
 
 Both [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647) and [Haines et al., 2020](https://doi.org/10.3758/s13423-018-1558-y) used this Stroop dataset as a demo. It is worth noting that the estimated test-retest reliability here is similar to Chen et al. (2021) but to some extent different from Haines et al., 2020, likely due to the stronger assumption regarding the variance-covariance structure in \\(\\mathbf \Sigma_{8\times 8}\\) that is mentioned earlier in the blog.
