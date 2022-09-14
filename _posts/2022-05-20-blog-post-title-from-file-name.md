@@ -27,17 +27,17 @@ b) demonstrate the implementation of the hierarchical model using the `R` packag
 
 ### Hierarchical modeling framework ###
 
-Let's first set the stage for our modeling framework. Suppose that, in a test-retest experiment, the quantity of interest (e.g., reaction time) \\(y_{crst}\\) is measured at trial \\(t\\) (\\(t=1,2,...,T\\)) during each of the two repetitions/sessions (\\(r=1,2\\)) for subject \\(s\\) (\\(s=1,2,...,S\\)) under the condition \\(c\\) (\\(c=1,2\\)). The goal is to assess the test-retest reliability for the contrast between the two conditions. Conceptually, the test-retest reliability measures the correlation of the contrast between the two repetitions/sessions. If one adopts the conventional ICC formulation, the data will have to be aggregated by collapsing trial dimension and obtain, for example, the average values \\(\overline{y}_{cs\cdot}\\). However, test-retest reliability could be underestimated under some circumstances, and the extent of underestimation depends on the relative magnitude of cross-trial variability compared to its cross-subject counterpart (Rouder et al., 2019; Chen et al., 2021). Here we build the following hierarchical model[^1]:
+Let's first set the stage for our modeling framework. Suppose that, in a test-retest experiment, the quantity of interest (e.g., reaction time) \\(y_{crst}\\) is measured at trial \\(t\\) (\\(t=1,2,...,T\\)) during each of the two repetitions/sessions (\\(r=1,2\\)) for subject \\(s\\) (\\(s=1,2,...,S\\)) under the condition \\(c\\) (\\(c=1,2\\)). The goal is to assess the test-retest reliability for the contrast between the two conditions. Conceptually, the test-retest reliability measures the correlation of the contrast between the two repetitions/sessions. If one adopts the conventional ICC formulation, the data will have to be aggregated by collapsing trial dimension and obtain, for example, the average values \\(\overline{y}_{cs\cdot}\\). However, test-retest reliability could be underestimated under some circumstances, and the extent of underestimation depends on the relative magnitude of cross-trial variability compared to its cross-subject counterpart (Rouder et al., 2019; Chen et al., 2021). Here we build the following hierarchical model[^1],
 
 $$
 \begin{aligned}
-\text{trial level: }y_{crst} ~ &\sim ~\mathcal D (\alpha_{crs}, \ \sigma_{crs}^2)\\
-\text{subject level: }\alpha_{crs}\ &=\ m_{cr}\ +\ \mu_{crs}\\
-\text{subject level: }\sigma_{crs}\ &=\ \gamma_{cr}\ +\ \tau_{crs}\\
+\text{trial level: }y_{crst} ~ &\sim ~\mathcal D (\alpha_{crs}, \ \sigma_{crs}^2);\\
+\text{subject level: }\alpha_{crs}\ &=\ m_{cr}\ +\ \mu_{crs};\\
+\text{subject level: }\sigma_{crs}\ &=\ \gamma_{cr}\ +\ \tau_{crs};\\
 \text{subject level: }\begin{bmatrix} \mu_{11s} \\ \mu_{21s} \\ \mu_{12s} \\ \mu_{22s} \\  \tau_{11s} \\ \tau_{21s} \\ \tau_{12s} \\ \tau_{22s} \end{bmatrix} &\ \sim
  \ \operatorname{Normal} \left ( 
     \begin{bmatrix} 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{bmatrix},\ \mathbf \Sigma_{8\times 8} 
-    \right) \\
+    \right). \\
 \end{aligned}
 $$
 
