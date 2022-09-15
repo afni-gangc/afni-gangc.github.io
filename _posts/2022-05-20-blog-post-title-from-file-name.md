@@ -120,7 +120,7 @@ dat$com <- paste0(dat$Condition, dat$time) # flatten the two factors
 dat$sub <- paste0('s',dat$subj_num).       # subjects
 write.table(dat[,c('sub', 'con', 'RT')], file = "stroop.txt", append = FALSE, quote = F, row.names = F)
 ```
-Now, we have a data table called `stroop.txt` with the few lines like this:
+Now, we have a data table called `stroop.txt` with the first few lines like this:
 
 ```
 sub com RT
