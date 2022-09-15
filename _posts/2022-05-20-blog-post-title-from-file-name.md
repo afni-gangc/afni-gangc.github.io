@@ -166,7 +166,6 @@ reveals the summarized results:
 
 ```{r}
 Group-Level Effects: 
-Group-Level Effects: 
 ~sub (Number of levels: 47) 
                                  Estimate Est.Error l-95% CI u-95% CI  Rhat Bulk_ESS Tail_ESS
 sd(comcon1)                         0.052     0.005    0.043    0.064 1.009      216      190
