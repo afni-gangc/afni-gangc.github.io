@@ -237,7 +237,7 @@ It's time to estimate the test-retest reliability! How to extract it from the mo
 
 ```\{r}
 S   <- VarCorr(m, summary=F)                                   # retrieve draws for the Sigma matrix
-C   <- matrix(c(1,0,-1,0,0,1,0,-1), ncol=2, nrow=4)            # contrast matrix for the contrast between the 2 conditions
+C   <- matrix(c(1,0,-1,0,0,1,0,-1), ncol=2, nrow=4)            # matrix for the contrast between the 2 conditions
 vc  <- apply(S$sub$cov[,1:4,1:4], 1, function(x) t(C)%*%x%*%C) # compute the var-cov matrix across the 2 sessions for the contrast
 trr <- apply(vc, 2, function(x) x[2]/sqrt(x[1]*x[4]))          # draws for TRR
 plot(density(trr), xlab='Test-Retest Reliability')             # plot TRR distribution
