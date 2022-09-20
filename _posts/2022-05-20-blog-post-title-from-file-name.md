@@ -12,7 +12,7 @@ A new modeling framework is needed to accurately estimate test-retest reliabilit
 
 2) separates the cross-trial variability from the estimation process of test-retest reliability. It is this hierarchical modeling framework we would like to adopt and demonstrate in this blog. More detailed theoretical discussion from the modeling perspective can be found in the following papers.
 
-* Haines et al., 2020. [Learning from the Reliability Paradox: How Theoretically Informed Generative Models Can Advance the Social, Behavioral, and Brain Sciences (preprint).](https://doi.org/10.3758/s13423-018-1558-y) PsyArXiv.
+* Haines et al., 2020. [Learning from the Reliability Paradox: How Theoretically Informed Generative Models Can Advance the Social, Behavioral, and Brain Sciences (preprint).](https://psyarxiv.com/xr7y3/) PsyArXiv.
 
 * Rouder, J.N., Haaf, J.M., 2019. [A psychometrics of individual differences in experimental tasks.](https://doi.org/10.3758/s13423-018-1558-y) Psychon Bull Rev 26, 452–467.
 
@@ -264,7 +264,7 @@ The plot below shows the posterior distribution of test-retest reliability for c
 -->
 <img alt="alt_text" width="360px" src="https://afni.nimh.nih.gov/sscc/staff/gangc/pub/trr.png" />
 
-Both [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647) and [Haines et al., (2020)](https://doi.org/10.3758/s13423-018-1558-y) used this Stroop dataset as a demo. It is worth noting that the estimated test-retest reliability here is similar to Chen et al. (2021) but to some extent different from Haines et al. (2020). The different results in Haines et al. (2020) were likely due to the stronger assumptions by Haines et al. (2020) regarding the variance-covariance structure in \\(\\mathbf \Sigma_{8\times 8}\\). In fact, the `summary(m)` output above from `brms` seems to indicate the violation of their strong assumptions.
+Both [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647) and [Haines et al., (2020)](https://psyarxiv.com/xr7y3/) used this Stroop dataset as a demo. It is worth noting that the estimated test-retest reliability here is similar to Chen et al. (2021) but to some extent different from Haines et al. (2020). The different results in Haines et al. (2020) were likely due to the stronger assumptions by Haines et al. (2020) regarding the variance-covariance structure in \\(\\mathbf \Sigma_{8\times 8}\\). In fact, the `summary(m)` output above from `brms` seems to indicate the violation of their strong assumptions.
 
 <!--One nice aspect of our parameterization is the easy extraction for an effect of interest. Since the model is directly parameterized with the four combinations of `con1`, `con2`, `inc1`, and `inc2`, we could readily obtain other correlations (e.g., correlation between the average between the two conditions or each individual condition) including the ones for those standard deviations \\(\tau_{crs}\\). Needless to say, the correlation structure among the four combinations is fully captured in the hierachical model.-->
 
