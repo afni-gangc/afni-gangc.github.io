@@ -111,7 +111,7 @@ long_stroop <- foreach(i=seq_along(files_t1), .combine = "rbind") %do% {
 dat <- long_stroop[long_stroop$Condition!=1,]
 ```
 
-Next, to apply the data to our hierarchical model, we flatten the two factors (condition and session) of $2\times 2$ structure into a dimension of four combinators with the following `R` code:
+Next, to apply the data to our hierarchical model, we flatten the two factors (condition and session) of $$2\times 2$$ structure into a dimension of four combinators with the following `R` code:
 
 ```{r}
 dat[dat$Condition==2,'Condition'] <- 'inc' # incongruent
