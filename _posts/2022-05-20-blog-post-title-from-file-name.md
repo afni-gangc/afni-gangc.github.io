@@ -1,6 +1,7 @@
 ## Estimating test-retest reliability for Stroop effect
 
 Gang Chen (twitter: @gangchen6)
+<!--map to https://afni-gangc.github.io/2022/05/20/blog-post-title-from-file-name.html --->
 
 ### Preface ###
 
