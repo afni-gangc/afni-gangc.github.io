@@ -111,7 +111,7 @@ long_stroop <- foreach(i=seq_along(files_t1), .combine = "rbind") %do% {
 dat <- long_stroop[long_stroop$Condition!=1,]
 ```
 
-Next, to apply the data to our hierarchical model, we flatten the two factors (condition and session) of $$2\times 2$$ structure into a dimension of four combinators with the following `R` code:
+Next, to apply the data to our hierarchical model, we flatten the two factors (condition and session) of \\(2\times 2\\) structure into a dimension of four combinators with the following `R` code:
 
 ```{r}
 dat[dat$Condition==2,'Condition'] <- 'inc' # incongruent
@@ -154,7 +154,7 @@ m <- brm(bf(RT ~ 0+com+(0+com|c|sub), sigma ~ 0+com+(0+com|c|sub)), data=dat,
 save.image(file = "stroop.RData")         
 ```
 
-You may be surprised to notice how simple the code is. The only line that codes our model using `brm` is quite straightforward (if you're familiar with the specification grammar used by the `R` package `lme4`) and it directly maps the data to our hierarchical model. Note that I fit the trial-level effects with an exponentially-modified Gaussian distribution for the probability density $\mathcal D$ in our hierarchical model above. This implementation may take a few hours (using within-chain parallelization would shorten the runtime), so leave your computer alone and come back later.
+You may be surprised to notice how simple the code is. The only line that codes our model using `brm` is quite straightforward (if you're familiar with the specification grammar used by the `R` package `lme4`) and it directly maps the data to our hierarchical model. Note that I fit the trial-level effects with an exponentially-modified Gaussian distribution for the probability density \\(\mathcal D\\) in our hierarchical model above. This implementation may take a few hours (using within-chain parallelization would shorten the runtime), so leave your computer alone and come back later.
 
 Let's check the results and make sure all the chains behaved properly. The following code
 ```{r}
