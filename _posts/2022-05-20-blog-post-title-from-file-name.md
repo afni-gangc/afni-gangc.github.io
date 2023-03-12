@@ -283,4 +283,4 @@ Both [Chen et al. (2021)](https://doi.org/10.1016/j.neuroimage.2021.118647) and 
 
 -----------
 [^1]: Thanks to Donald Williams for suggesting the incorporation of correlations between location and scale parameters in this [twitter thread](https://twitter.com/wdonald_1985/status/1528513338803490816)
-[^2]: Thanks to Michael Freund for suggesting an improvement upon my previous approach.
+[^2]: Thanks to Michael Freund for suggesting an improvement upon my previous approach to assembling the posterior distribution.
