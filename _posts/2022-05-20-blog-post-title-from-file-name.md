@@ -42,31 +42,6 @@ $$
 \end{aligned}
 $$
 
-<!--\\begin{bmatrix} \mu_{11s} \\\\ \mu_{21s} \\\\ \mu_{12s} \\\\ \mu_{22s} \\end{bmatrix} &\ \\sim
- \ \\operatorname{Normal} \\left ( 
-    \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix},\ \\mathbf S_{4\times 4} 
-    \\right) \\\\
-\\begin{bmatrix} \tau_{11s} \\\\ \tau_{21s} \\\\ \tau_{12s} \\\\ \tau_{22s} \\end{bmatrix} &\ \\sim
- \ \\operatorname{Normal} \\left ( 
-    \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\\\ 0 \\end{bmatrix},\ \\mathbf R_{4\times 4} 
-    \\right) \\\\
-\\begin{bmatrix} \mu_{crs} \\\\ \tau_{crs} \\end{bmatrix} &\ \\sim
- \ \\operatorname{Normal} \\left ( 
-    \\begin{bmatrix} 0 \\\\ 0 \\end{bmatrix},\ \\mathbf V_{2\times 2}^{(cr)} 
-    \\right) \\\\--->  
-
-<!--\begin{equation}
-y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
-\end{equation}--->
-
-<!--```{math}
-y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);
-```--->
-
-<!--**trial** level: $y_{crst}~\sim ~\mathcal D (m_{cr}\ +\ \mu_{crs}, \ \sigma_{crs}^2);$
-
-**subject** level: $(\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})^T \sim ~\mathcal N(\boldsymbol 0_{4\times 1}, ~\boldsymbol S_{4\times 4}).$--->
-
 Here the distribution \\(\mathcal D\\) at the trial level can be any probability density that could properly capture the data generative mechanism. The typical distributions for reaction time are Gaussian, Student's \\(t\\), exponentially-modified Gaussian, (shifted) log-normal, etc. The two parameters of \\(m_{cr}\\) and \\(\gamma_{cr}\\) are the population-level effect and standard deviation under condition \\(c\\) during repetition \\(r\\). The variance-covariance matrix \\(\\mathbf \Sigma_{8\times 8}\\) captures the inter-relationships among the subject-level effects \\(\mu_{crs}\\) and standard deviations \\(\tau_{crs}\\). We know that, after scaling, the variance-covariance matrix \\(\\mathbf \Sigma_{8\times 8}\\) would show the correlation structure among the four components of \\((\mu_{11s},\ \mu_{21s},\ \mu_{12s},\ \mu_{22s})\\). Later I will demonstrate how to extract the jewels in the crown from this matrix \\(\\mathbf \Sigma_{8\times 8}\\) and obtain test-retest reliability for various effects. Those parameters (e.g., hyperparameters \\(m_{cr}\\), \\(\\mathbf \gamma_{cr}\\), \\(\mathbf \Sigma_{8\times 8}\\)) without a distribution attached will be assigned with some priors in real implementations.
 
 <!--The cross-trial variability $\sigma_{crs}$ can be further partitioned among the four combinations between the two factors of condition and session. Specifically, as shown in Haines (2020), the standard deviation $\sigma$ can be structured with three indices $c$, $r$, and $s$, and then assumed to be (mirroring the subject-level effects above):
